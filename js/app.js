@@ -1313,6 +1313,46 @@
   let musicTimer = null;
   let musicOn = false;
   let stepIndex = 0;
+  let musicMood = "tender";
+  let musicFilter = null;
+  let musicDelay = null;
+  let musicFeedback = null;
+  let musicWet = null;
+
+  const musicModes = {
+    tender: {
+      label: "Нежно",
+      melody: [523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25, 587.33, 523.25, 659.25, 783.99, 880, 1046.5, 880, 783.99, 659.25],
+      bass: [130.81, 146.83, 174.61, 196],
+      step: 520, noteDur: 1.1, bassDur: 2.2, volume: 0.16,
+      filter: 1800, delay: 0.34, feedback: 0.22, wet: 0.25, lead: "triangle"
+    },
+    night: {
+      label: "Ночь",
+      melody: [392, 440, 523.25, 493.88, 392, 349.23, 392, 440, 329.63, 392, 440, 523.25, 493.88, 440, 392, 349.23],
+      bass: [98, 110, 130.81, 87.31],
+      step: 720, noteDur: 1.7, bassDur: 3.2, volume: 0.13,
+      filter: 1100, delay: 0.48, feedback: 0.3, wet: 0.32, lead: "sine"
+    },
+    morning: {
+      label: "Тёплое утро",
+      melody: [659.25, 783.99, 880, 987.77, 880, 783.99, 659.25, 587.33, 659.25, 783.99, 1046.5, 987.77, 880, 783.99, 659.25, 587.33],
+      bass: [164.81, 196, 220, 174.61],
+      step: 440, noteDur: 0.9, bassDur: 1.8, volume: 0.14,
+      filter: 2600, delay: 0.24, feedback: 0.16, wet: 0.2, lead: "triangle"
+    },
+    home: {
+      label: "Мы дома",
+      melody: [440, 493.88, 587.33, 523.25, 440, 392, 440, 493.88, 349.23, 392, 440, 523.25, 493.88, 440, 392, 349.23],
+      bass: [110, 130.81, 146.83, 98],
+      step: 600, noteDur: 1.4, bassDur: 2.8, volume: 0.15,
+      filter: 1500, delay: 0.4, feedback: 0.26, wet: 0.28, lead: "sine"
+    }
+  };
+
+  function currentMode() {
+    return musicModes[musicMood] || musicModes.tender;
+  }
 
   function ensureAudio() {
     if (!audioCtx) {
@@ -1321,24 +1361,37 @@
       audioCtx = new AC();
       masterGain = audioCtx.createGain();
       masterGain.gain.value = 0;
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = "lowpass";
-      filter.frequency.value = 1800;
-      const delay = audioCtx.createDelay();
-      delay.delayTime.value = 0.34;
-      const feedback = audioCtx.createGain();
-      feedback.gain.value = 0.22;
-      const wet = audioCtx.createGain();
-      wet.gain.value = 0.25;
-      masterGain.connect(filter);
-      filter.connect(audioCtx.destination);
-      filter.connect(delay);
-      delay.connect(feedback);
-      feedback.connect(delay);
-      delay.connect(wet);
-      wet.connect(audioCtx.destination);
+      musicFilter = audioCtx.createBiquadFilter();
+      musicFilter.type = "lowpass";
+      musicDelay = audioCtx.createDelay();
+      musicFeedback = audioCtx.createGain();
+      musicWet = audioCtx.createGain();
+      masterGain.connect(musicFilter);
+      musicFilter.connect(audioCtx.destination);
+      musicFilter.connect(musicDelay);
+      musicDelay.connect(musicFeedback);
+      musicFeedback.connect(musicDelay);
+      musicDelay.connect(musicWet);
+      musicWet.connect(audioCtx.destination);
+      applyMoodAudio();
     }
     return true;
+  }
+
+  function applyMoodAudio() {
+    if (!audioCtx) return;
+    const m = currentMode();
+    const t = audioCtx.currentTime;
+    const ramp = (node, param, value) => {
+      if (!node) return;
+      node[param].cancelScheduledValues(t);
+      node[param].setValueAtTime(node[param].value, t);
+      node[param].linearRampToValueAtTime(value, t + 1);
+    };
+    ramp(musicFilter, "frequency", m.filter);
+    ramp(musicDelay, "delayTime", m.delay);
+    ramp(musicFeedback, "gain", m.feedback);
+    ramp(musicWet, "gain", m.wet);
   }
 
   function playNote(freq, time, dur, gainValue, type) {
@@ -1358,24 +1411,39 @@
 
   function musicTick() {
     if (!audioCtx) return;
-    const melody = [523.25, 587.33, 659.25, 783.99, 880.0, 783.99, 659.25, 587.33, 523.25, 659.25, 783.99, 880.0, 1046.5, 880.0, 783.99, 659.25];
-    const bass = [130.81, 146.83, 174.61, 196.0];
+    const m = currentMode();
     const now = audioCtx.currentTime + 0.02;
-    const n = melody[stepIndex % melody.length];
-    playNote(n, now, 1.1, 0.035, "triangle");
-    if (stepIndex % 2 === 0) playNote(n * 2, now + 0.12, 0.75, 0.012, "sine");
-    if (stepIndex % 4 === 0) playNote(bass[Math.floor(stepIndex / 4) % bass.length], now, 2.2, 0.028, "sine");
+    const n = m.melody[stepIndex % m.melody.length];
+    playNote(n, now, m.noteDur, 0.035, m.lead);
+    if (stepIndex % 2 === 0) playNote(n * 2, now + 0.12, m.noteDur * 0.7, 0.012, "sine");
+    if (stepIndex % 4 === 0) playNote(m.bass[Math.floor(stepIndex / 4) % m.bass.length], now, m.bassDur, 0.028, "sine");
     stepIndex++;
+  }
+
+  function scheduleMusicTick() {
+    clearInterval(musicTimer);
+    musicTimer = setInterval(musicTick, currentMode().step);
+  }
+
+  function updateMoodUI() {
+    $$("[data-mood]").forEach((card) => {
+      const active = card.dataset.mood === musicMood;
+      card.classList.toggle("is-active", active);
+      card.setAttribute("aria-pressed", String(active));
+    });
   }
 
   function setMusicUI(on) {
     const btn = $("#musicBtn");
-    if (!btn) return;
-    btn.classList.toggle("is-playing", on);
-    btn.setAttribute("aria-pressed", String(on));
-    const txt = btn.querySelector(".music-btn__text");
-    if (txt) txt.textContent = on ? "пауза" : "музыка";
-    btn.setAttribute("aria-label", on ? "Выключить музыку" : "Включить музыку");
+    if (btn) {
+      btn.classList.toggle("is-playing", on);
+      btn.setAttribute("aria-pressed", String(on));
+      btn.setAttribute("aria-label", on ? "Выключить музыку" : "Включить музыку");
+      const txt = btn.querySelector(".music-btn__text");
+      if (txt) txt.textContent = on ? "пауза" : "музыка";
+    }
+    const play = $("#musicPlay");
+    if (play) play.textContent = on ? "Выключить звук ♥" : "Включить звук ♥";
   }
 
   function startMusic() {
@@ -1384,15 +1452,16 @@
       return;
     }
     audioCtx.resume();
+    applyMoodAudio();
     masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
     masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
-    masterGain.gain.linearRampToValueAtTime(0.16, audioCtx.currentTime + 2);
+    masterGain.gain.linearRampToValueAtTime(currentMode().volume, audioCtx.currentTime + 2);
     musicOn = true;
     stepIndex = 0;
     musicTick();
-    musicTimer = setInterval(musicTick, 520);
+    scheduleMusicTick();
     setMusicUI(true);
-    toast("Тихая музыка для тебя ♥");
+    toast(`${currentMode().label}: тихая музыка для тебя ♥`);
   }
 
   function stopMusic() {
@@ -1408,9 +1477,32 @@
   }
 
   function initMusic() {
+    updateMoodUI();
     $("#musicBtn")?.addEventListener("click", () => {
       if (musicOn) stopMusic();
       else startMusic();
+    });
+    $("#musicPlay")?.addEventListener("click", () => {
+      if (musicOn) stopMusic();
+      else startMusic();
+    });
+    $$("[data-mood]").forEach((card) => {
+      card.addEventListener("click", () => {
+        const mood = card.dataset.mood;
+        if (!musicModes[mood]) return;
+        musicMood = mood;
+        stepIndex = 0;
+        updateMoodUI();
+        applyMoodAudio();
+        if (musicOn) {
+          scheduleMusicTick();
+          musicTick();
+        } else {
+          startMusic();
+          return;
+        }
+        toast(`${currentMode().label} — так и буду звучать рядом ♥`);
+      });
     });
   }
 
@@ -1420,7 +1512,7 @@
     const toggle = $("#navToggle");
     const links = $("#navLinks");
     const progress = $("#scrollProgress");
-    const sections = ["letter", "story", "moments", "gifts", "date"].map((id) => document.getElementById(id)).filter(Boolean);
+    const sections = ["letter", "story", "moments", "gifts", "date", "music"].map((id) => document.getElementById(id)).filter(Boolean);
 
     function onScroll() {
       const y = window.scrollY;
