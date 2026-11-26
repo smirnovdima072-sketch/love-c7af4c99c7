@@ -8,9 +8,9 @@ window.GIFT_DATA = {
                    },
                    {
                        "id":  "bday2b",
-                       "title":  "Второй раз",
+                       "title":  "Подарки без повода",
                        "emoji":  "🎁",
-                       "subtitle":  "Потому что одного раза всегда мало, когда дело касается тебя"
+                       "subtitle":  "Просто так. Без повода — просто потому, что я хотел тебя радовать"
                    },
                    {
                        "id":  "bday2c",
@@ -32,7 +32,7 @@ window.GIFT_DATA = {
                    },
                    {
                        "id":  "album",
-                       "title":  "Альбом за первый год",
+                       "title":  "Альбом на первый год",
                        "emoji":  "📖",
                        "subtitle":  "Страницы, которые я до сих пор пересматриваю"
                    }
@@ -40,7 +40,7 @@ window.GIFT_DATA = {
     "gifts":  [
                   {
                       "nm":  "1043521869",
-                      "group":  "bday2b",
+                      "group":  "bday2a",
                       "name":  "Постер, плакат на стену Автомобиль Toyota Mark 2 (II) X90",
                       "brand":  null,
                       "subject":  "Постеры",
@@ -50,7 +50,7 @@ window.GIFT_DATA = {
                   },
                   {
                       "nm":  "106074485",
-                      "group":  "bday2b",
+                      "group":  "bday2a",
                       "name":  "Коробка самосборная для хранения",
                       "brand":  "Сима-Ленд \u0026 UPAK LAND",
                       "subject":  "Подарочные коробки",
@@ -130,7 +130,7 @@ window.GIFT_DATA = {
                   },
                   {
                       "nm":  "214978249",
-                      "group":  "bday2b",
+                      "group":  "bday2a",
                       "name":  "Диффузор для дома с палочками 50 мл",
                       "brand":  "Permegi",
                       "subject":  "Парфюм для дома",
@@ -310,7 +310,7 @@ window.GIFT_DATA = {
                   },
                   {
                       "nm":  "453595880",
-                      "group":  "bday2b",
+                      "group":  "bday2a",
                       "name":  "Духи Белый Шоколад White Chocola 20 мл",
                       "brand":  "DELIBALTIDIS",
                       "subject":  "Духи",

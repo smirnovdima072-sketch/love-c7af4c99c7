@@ -2017,6 +2017,15 @@ strong {
   transform: rotate(-4deg);
 }
 
+.handmade-card__media--book .album-photo {
+  width: min(100%, 320px);
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 45px rgba(80, 34, 50, 0.22);
+  transform: rotate(-2deg);
+}
+
 .handmade-card__media--letters {
   display: grid;
   place-items: center;
