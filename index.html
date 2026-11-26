@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7f3">
+  <title>Для тебя, любимая ♥</title>
+  <meta name="description" content="Письмо, наша история и приглашение на свидание — только для тебя.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__heart">♥</div>
+  <p>для тебя…</p>
+</div>
+
+<div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+<canvas class="fx-canvas" id="fxCanvas" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="В начало">
+    <span class="brand__heart">♥</span>
+    <span>для тебя</span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Разделы">
+    <a href="#letter">Письмо</a>
+    <a href="#story">История</a>
+    <a href="#moments">Моменты</a>
+    <a href="#gifts">Подарки</a>
+    <a href="#date">Свидание</a>
+  </nav>
+  <div class="nav__side">
+    <button class="music-btn" id="musicBtn" type="button" aria-pressed="false" aria-label="Включить музыку">
+      <span class="music-btn__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="music-btn__text">музыка</span>
+    </button>
+    <button class="nav__toggle" id="navToggle" type="button" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <section class="hero">
+    <img class="hero__bg" src="assets/photos/p37.jpg" alt="Мы вдвоём на закате">
+    <div class="hero__veil"></div>
+    <div class="hero__glow hero__glow--one" aria-hidden="true"></div>
+    <div class="hero__glow hero__glow--two" aria-hidden="true"></div>
+    <div class="petals" id="petals" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow reveal">этот сайт — только для тебя</p>
+      <h1 class="hero__title reveal">
+        <span>Я не хочу</span>
+        <em>терять нас.</em>
+      </h1>
+      <p class="hero__lead reveal">
+        Здесь нет спора и нет попытки быть правым.<br>
+        Только письмо, наша история и один очень простой вопрос.
+      </p>
+      <div class="hero__actions reveal">
+        <a class="btn btn--primary" href="#letter">
+          <span>Открыть письмо</span>
+          <span class="btn__heart">♥</span>
+        </a>
+        <a class="btn btn--soft" href="#date">Наше свидание</a>
+      </div>
+      <p class="hero__note reveal">читай медленно. я никуда не тороплюсь.</p>
+    </div>
+
+    <div class="hero__polaroids" aria-hidden="true">
+      <figure class="polaroid polaroid--one">
+        <img src="assets/photos/p21.jpg" alt="">
+        <figcaption>ты у окна</figcaption>
+      </figure>
+      <figure class="polaroid polaroid--two">
+        <img src="assets/photos/p72.jpg" alt="">
+        <figcaption>моё любимое «мы»</figcaption>
+      </figure>
+    </div>
+
+    <a class="scroll-cue" href="#letter">
+      <span class="scroll-cue__line"></span>
+      <span>листай вниз</span>
+    </a>
+  </section>
+
+  <!-- ─────────────── LETTER ─────────────── -->
+  <section class="section letter-section" id="letter">
+    <div class="section__ornament" aria-hidden="true">♡</div>
+    <div class="container container--narrow">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">без фильтров и красивых слов</p>
+        <h2>Письмо, которое я не смог сказать вслух</h2>
+      </div>
+
+      <article class="paper reveal" id="letterPaper">
+        <div class="paper__seal" aria-hidden="true">♥</div>
+        <div class="paper__date">сегодня, пока ты ещё не рядом</div>
+        <p class="script letter__hello">Любимая,</p>
+
+        <div class="letter__body">
+          <p>Я долго думал, с чего начать. И понял, что не хочу начинать с оправданий. Хочу начать с главного: <strong>ты мне очень дорога.</strong> Дороже, чем я умею говорить об этом вслух.</p>
+
+          <p>Я знаю, из-за чего всё сорвалось. Я постоянно жаловался, что у меня нет друзей, что во мне живёт постоянная тревога — и при этом ничего не делал, чтобы это изменить. Я просто приносил это к тебе, снова и снова, и не замечал, как тебе самой становится тяжело рядом со мной. Мне жаль. Не за то, что «так вышло», а за то, что я сделал тебя местом, куда выливал свою тревогу, вместо того чтобы разобраться с ней сам. Ты этого не заслуживала.</p>
+
+          <p>Я понял одну вещь: жалобы не помогают, если за ними не стоит никакого движения. Я хотел, чтобы ты пожалела меня и осталась рядом, но почти не давал тебе ничего взамен, кроме усталости. Я должен был сам искать людей, сам учиться справляться с тревогой, сам становиться спокойнее — и перестать ждать, что ты каждый день будешь спасать меня. Я не обещаю, что всё вдруг станет легко. Обещаю начать с себя. И очень хочу, чтобы ты увидела это не в словах, а в том, как я на самом деле изменюсь.</p>
+
+          <p>Я не прошу тебя сделать вид, что ничего не было. И не прошу решить всё сегодня. Я просто хочу, чтобы ты знала: я готов говорить. Спокойно. Честно. Без «ты снова», «я снова» и без попыток выиграть спор, в котором не может быть победителей.</p>
+
+          <p>Ты — не пункт в списке моих дел. Ты — человек, с которым я хочу делить обычные вечера, смешные видео, поездки, тишину и всё остальное. Я помню, как мы катались по Улан-Удэ, как ты смеялась на Байкале, как мы готовили синабоны и как ты смотрела на меня, когда думала, что я не вижу. Я всё это помню. И не хочу, чтобы это осталось только воспоминаниями.</p>
+
+          <p>Если тебе нужно время — возьми его. Я не буду торопить, писать по десять раз и ставить ультиматумы. Я буду рядом. Просто знай: <strong>я никуда не ухожу.</strong></p>
+
+          <p>Спасибо, что дочитала. Это уже больше, чем я заслуживаю.</p>
+
+          <p class="letter__last">Я люблю тебя. Не идеально. Но по-настоящему.</p>
+        </div>
+
+        <div class="paper__signature">
+          <span class="script">Твой. И это не изменилось.</span>
+          <span class="paper__sign-heart">♥</span>
+        </div>
+
+        <button class="btn btn--ghost btn--small" type="button" data-hearts>
+          нажми, если хочется тепла
+        </button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─────────────── PROMISES ─────────────── -->
+  <section class="section promises">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div>
+          <p class="eyebrow">не обещания на словах</p>
+          <h2>Что я понял</h2>
+        </div>
+        <p class="section-head__lead">Я не хочу просто пережить эту ссору. Я хочу выйти из неё другим человеком — и другим «нами».</p>
+      </div>
+      <div class="promises__grid" id="promisesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ─────────────── TIMELINE ─────────────── -->
+  <section class="section timeline-section" id="story">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">это нельзя перечеркнуть одной ссорой</p>
+        <h2>Наша история</h2>
+        <p class="section-head__lead">Девять глав, которые я пересматриваю, когда становится тихо.</p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- ─────────────── GALLERY ─────────────── -->
+  <section class="section gallery-section" id="moments">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div>
+          <p class="eyebrow">наши люди, наши места, наши дни</p>
+          <h2>Наши моменты</h2>
+        </div>
+        <p class="section-head__lead">Все фото и видео, которые я нашёл. Нажми на любой кадр — он станет больше.</p>
+      </div>
+
+      <div class="filters reveal" id="galleryFilters" role="group" aria-label="Фильтр фотографий"></div>
+
+      <div class="gallery-grid" id="galleryGrid"></div>
+
+      <div class="load-more-wrap">
+        <button class="btn btn--soft" id="galleryMore" type="button">Показать ещё</button>
+        <p class="load-more-wrap__count" id="galleryCount"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── LITTLE THINGS ─────────────── -->
+  <section class="section little-section" id="little">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div>
+          <p class="eyebrow">мелочи, которые никто не видит</p>
+          <h2>Я храню даже это</h2>
+        </div>
+        <p class="section-head__lead">Обои, аватарки, длинные сообщения и твой адрес в избранном. Вот из чего на самом деле состоит «люблю».</p>
+      </div>
+    </div>
+    <div class="little-rail" id="littleRail"></div>
+    <div class="container">
+      <p class="little-note reveal">Некоторые вещи я специально оставил с секретом. Это только между нами.</p>
+    </div>
+  </section>
+
+  <!-- ─────────────── GIFTS ─────────────── -->
+  <section class="section gifts-section" id="gifts">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div>
+          <p class="eyebrow">архив моих «хочу тебя порадовать»</p>
+          <h2>Твои подарки</h2>
+        </div>
+        <p class="section-head__lead">Я собрал всё, что дарил. С артикулами Wildberries — вдруг захочешь что-то повторить.</p>
+      </div>
+
+      <div class="gift-stats reveal">
+        <div class="gift-stat"><strong id="giftCount">0</strong><span>подарков</span></div>
+        <div class="gift-stat"><strong>6</strong><span>поводов</span></div>
+        <div class="gift-stat"><strong>∞</strong><span>любви</span></div>
+      </div>
+
+      <div class="filters reveal" id="giftFilters" role="group" aria-label="Фильтр подарков"></div>
+
+      <div class="gift-grid" id="giftGrid"></div>
+
+      <div class="load-more-wrap">
+        <button class="btn btn--soft" id="giftsMore" type="button">Показать ещё подарки</button>
+        <p class="load-more-wrap__count" id="giftsCount"></p>
+      </div>
+
+      <p class="gifts-note reveal">Если товар удалён с Wildberries — не страшно. Он всё равно уже твой. Так же, как и я.</p>
+    </div>
+  </section>
+
+  <!-- ─────────────── HANDMADE ─────────────── -->
+  <section class="section handmade-section" id="handmade">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">то, что нельзя купить</p>
+        <h2>Сделано руками</h2>
+        <p class="section-head__lead">Ёлочка, альбом, розы и открытки. Всё это я делал ночами — и думал о тебе.</p>
+      </div>
+
+      <div class="handmade-grid">
+        <article class="handmade-card handmade-card--wide reveal">
+          <div class="handmade-card__media">
+            <button class="media-thumb media-thumb--tree" type="button" data-video-src="assets/videos/v14.mp4" data-caption="Ёлочка, которую я собирал для тебя" aria-label="Смотреть видео: ёлочка, которую я собирал для тебя">
+              <video src="assets/videos/v14.mp4" preload="auto" autoplay loop muted playsinline aria-hidden="true"></video>
+              <span class="play-badge" aria-hidden="true">▶</span>
+              <span class="media-thumb__hint">смотреть видео</span>
+            </button>
+          </div>
+          <div class="handmade-card__body">
+            <span class="handmade-card__tag">🎄 главный новогодний проект</span>
+            <h3>Ёлочка для тебя</h3>
+            <p>Я собирал её по веточке, чтобы она была не как у всех. Она стояла у нас и была самым тёплым напоминанием, что Новый год — это не дата, а люди.</p>
+            <button class="text-link" type="button" data-gift-jump="tree">посмотреть, из чего она сделана →</button>
+          </div>
+        </article>
+
+        <article class="handmade-card reveal">
+          <div class="handmade-card__media handmade-card__media--book">
+            <div class="album-mock">
+              <div class="album-mock__page"><img src="assets/photos/p15.jpg" alt="Страница альбома"></div>
+              <div class="album-mock__page"><img src="assets/photos/p18.jpg" alt="Страница альбома"></div>
+              <div class="album-mock__page"><img src="assets/photos/p21.jpg" alt="Страница альбома"></div>
+              <div class="album-mock__spine">наш первый год</div>
+            </div>
+          </div>
+          <div class="handmade-card__body">
+            <span class="handmade-card__tag">📖 первый год отношений</span>
+            <h3>Альбом за первый год</h3>
+            <p>Каждая страница — отдельный день, который я не хотел забыть. Я до сих пор пересматриваю его, когда скучаю. А скучаю я часто.</p>
+            <button class="text-link" type="button" data-gift-jump="album">посмотреть материалы →</button>
+          </div>
+        </article>
+
+        <article class="handmade-card reveal">
+          <div class="handmade-card__media">
+            <img src="assets/photos/p68.jpg" alt="Розы, сделанные вручную">
+          </div>
+          <div class="handmade-card__body">
+            <span class="handmade-card__tag">🌹 самый важный подарок</span>
+            <h3>Розы, которые не увянут</h3>
+            <p>Я сделал их сам на твой первый день рождения в наших отношениях. Живые цветы увядают, а эти — нет. Как и мои чувства, если это вообще нужно говорить.</p>
+          </div>
+        </article>
+
+        <article class="handmade-card reveal">
+          <div class="handmade-card__media handmade-card__media--letters">
+            <div class="letter-stack" aria-hidden="true">
+              <div class="mini-card mini-card--one"><span>для тебя</span><b>♥</b></div>
+              <div class="mini-card mini-card--two"><span>с любовью</span><b>♡</b></div>
+              <div class="mini-card mini-card--three"><span>навсегда</span><b>♥</b></div>
+            </div>
+          </div>
+          <div class="handmade-card__body">
+            <span class="handmade-card__tag">✉️ открытки</span>
+            <h3>Открытки, которые ты сохранила</h3>
+            <p>Я рисовал их от руки, украшал и прятал в коробочки. Фотографий не осталось — но я помню каждую. И если ты хранишь их, это всё ещё говорит громче любых слов.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── COUPONS ─────────────── -->
+  <section class="section coupons-section" id="coupons">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div>
+          <p class="eyebrow">кликабельные, честное слово</p>
+          <h2>Купоны любви</h2>
+        </div>
+        <p class="section-head__lead">Нажми на купон, чтобы активировать. Действуют бессрочно и без мелкого шрифта.</p>
+      </div>
+      <div class="coupon-grid" id="couponGrid"></div>
+      <p class="coupon-counter reveal" id="couponCounter"></p>
+    </div>
+  </section>
+
+  <!-- ─────────────── DATE PLANNER ─────────────── -->
+  <section class="section planner-section" id="date">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">и теперь самое главное</p>
+        <h2>Наше свидание</h2>
+        <p class="section-head__lead">Выбери, куда мы пойдём, дату и время. Я всё организую. От тебя — только «да».</p>
+      </div>
+
+      <div class="planner reveal" id="planner">
+        <div class="planner__glow" aria-hidden="true"></div>
+
+        <div class="stepper" aria-hidden="true">
+          <div class="stepper__item is-active" data-step-dot="1"><span>1</span><b>что нас ждёт</b></div>
+          <div class="stepper__line"></div>
+          <div class="stepper__item" data-step-dot="2"><span>2</span><b>когда</b></div>
+          <div class="stepper__line"></div>
+          <div class="stepper__item" data-step-dot="3"><span>3</span><b>приглашение</b></div>
+        </div>
+
+        <div class="planner-step is-active" data-step="1">
+          <div class="planner-step__head">
+            <h3>Что нас ждёт?</h3>
+            <p>Можно выбрать только одно. Но если хочется всё — я не против.</p>
+          </div>
+          <div class="activity-grid" id="activityGrid"></div>
+          <div class="custom-activity" id="customActivityWrap" hidden>
+            <label for="customActivity">Куда ты хочешь?</label>
+            <input id="customActivity" type="text" maxlength="80" placeholder="Например: в тот парк, где мы гуляли в первый раз">
+          </div>
+          <div class="planner-nav">
+            <span class="planner-hint" id="step1Hint">выбери, и мы продолжим</span>
+            <button class="btn btn--primary" type="button" id="toStep2" disabled>Дальше <span>→</span></button>
+          </div>
+        </div>
+
+        <div class="planner-step" data-step="2">
+          <div class="planner-step__head">
+            <h3>Когда тебе удобно?</h3>
+            <p>Выбери день и время. Всё остальное — моя забота.</p>
+          </div>
+
+          <div class="datetime">
+            <div class="calendar" id="calendar">
+              <div class="calendar__head">
+                <button class="calendar__nav" type="button" id="calPrev" aria-label="Предыдущий месяц">←</button>
+                <div class="calendar__month" id="calMonth"></div>
+                <button class="calendar__nav" type="button" id="calNext" aria-label="Следующий месяц">→</button>
+              </div>
+              <div class="calendar__weekdays" aria-hidden="true">
+                <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span>
+              </div>
+              <div class="calendar__days" id="calDays"></div>
+              <div class="calendar__quick" id="calQuick"></div>
+            </div>
+
+            <div class="time-picker">
+              <p class="time-picker__label">время</p>
+              <div class="time-slots" id="timeSlots"></div>
+              <label class="custom-time">
+                <span>своё время</span>
+                <input type="time" id="customTime" step="300">
+              </label>
+              <div class="selected-line">
+                <span>Ты выбрала:</span>
+                <strong id="selectedDateTime">пока ничего</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="planner-nav">
+            <button class="btn btn--ghost" type="button" id="backTo1">← Назад</button>
+            <button class="btn btn--primary" type="button" id="toStep3" disabled>К приглашению <span>→</span></button>
+          </div>
+        </div>
+
+        <div class="planner-step" data-step="3">
+          <div class="planner-step__head">
+            <h3>Твоё приглашение</h3>
+            <p>Если всё верно — забирай. Если нет — всегда можно изменить.</p>
+          </div>
+
+          <div class="invite-layout">
+            <div class="ticket" id="ticket">
+              <div class="ticket__stub">
+                <span>♥</span>
+                <small>наше</small>
+              </div>
+              <div class="ticket__main">
+                <p class="ticket__label">приглашение на свидание</p>
+                <h4 id="ticketActivity">—</h4>
+                <div class="ticket__meta">
+                  <div><span>дата</span><b id="ticketDate">—</b></div>
+                  <div><span>время</span><b id="ticketTime">—</b></div>
+                </div>
+                <p class="ticket__note" id="ticketNote">С тобой — куда угодно.</p>
+                <div class="ticket__code" id="ticketCode">LOVE-0000</div>
+                <div class="ticket__stamp" aria-hidden="true">принято</div>
+              </div>
+            </div>
+
+            <div class="invite-side">
+              <label class="invite-comment">
+                <span>Хочешь что-то добавить?</span>
+                <textarea id="inviteComment" rows="3" maxlength="240" placeholder="Например: только без спагетти, я всё ещё помню тот вечер 😅"></textarea>
+              </label>
+
+              <div class="invite-actions" id="inviteActions">
+                <button class="btn btn--primary btn--wide" type="button" id="acceptInvite">
+                  <span>Принять приглашение</span>
+                  <span class="btn__heart">♥</span>
+                </button>
+                <button class="btn btn--ghost btn--wide" type="button" id="needTime">Мне нужно время</button>
+                <button class="text-link" type="button" id="backTo2">← изменить дату или время</button>
+              </div>
+
+              <div class="invite-success" id="inviteSuccess" hidden>
+                <div class="invite-success__heart">♥</div>
+                <h4>Ты сделала меня счастливым.</h4>
+                <p>Я всё организую. Просто будь рядом — остальное я возьму на себя.</p>
+                <div class="countdown" id="countdown">
+                  <div><b id="cdDays">00</b><span>дней</span></div>
+                  <div><b id="cdHours">00</b><span>часов</span></div>
+                  <div><b id="cdMinutes">00</b><span>минут</span></div>
+                  <div><b id="cdSeconds">00</b><span>секунд</span></div>
+                </div>
+                <div class="invite-success__actions">
+                  <button class="btn btn--soft btn--small" type="button" id="copyInvite">Скопировать приглашение</button>
+                  <a class="btn btn--soft btn--small" id="shareTg" href="#" target="_blank" rel="noopener">Отправить в Telegram</a>
+                  <button class="text-link" type="button" id="changeInvite">изменить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── FINAL ─────────────── -->
+  <section class="final">
+    <div class="final__hearts" aria-hidden="true">
+      <span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+    </div>
+    <div class="container container--narrow final__inner reveal">
+      <p class="eyebrow">последнее, самое важное</p>
+      <h2 class="final__title">Ты — моё самое любимое <em>«мы»</em>.</h2>
+      <p class="final__text">Даже если сейчас между нами пауза — я не перестаю любить тебя. И не перестану.</p>
+      <div class="final__actions">
+        <button class="btn btn--primary" type="button" data-hearts>
+          <span>Я тебя люблю</span>
+          <span class="btn__heart">♥</span>
+        </button>
+        <button class="btn btn--ghost" type="button" id="needTimeFinal">Мне нужно время</button>
+      </div>
+      <p class="final__sign script">Твой. И это не изменилось.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="footer__heart">♥</span>
+    <p>Сделано с любовью, бессонными ночами и тобой в голове.</p>
+    <p class="footer__small">2026 · только для одной девушки на свете</p>
+  </div>
+</footer>
+
+<!-- ─────────────── LIGHTBOX ─────────────── -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <button class="lightbox__close" type="button" id="lightboxClose" aria-label="Закрыть">×</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" id="lightboxPrev" aria-label="Предыдущее">←</button>
+  <div class="lightbox__stage" id="lightboxStage"></div>
+  <button class="lightbox__nav lightbox__nav--next" type="button" id="lightboxNext" aria-label="Следующее">→</button>
+  <p class="lightbox__caption" id="lightboxCaption"></p>
+</div>
+
+<!-- ─────────────── GIFT MODAL ─────────────── -->
+<div class="modal" id="giftModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Подарок">
+  <div class="modal__backdrop" data-close-gift></div>
+  <div class="modal__card gift-modal">
+    <button class="modal__close" type="button" data-close-gift aria-label="Закрыть">×</button>
+    <div class="gift-modal__media" id="giftModalMedia"></div>
+    <div class="gift-modal__body">
+      <p class="gift-modal__brand" id="giftModalBrand"></p>
+      <h3 id="giftModalName"></h3>
+      <p class="gift-modal__subject" id="giftModalSubject"></p>
+      <p class="gift-modal__note" id="giftModalNote"></p>
+      <p class="gift-modal__article" id="giftModalArticle"></p>
+      <a class="btn btn--primary btn--small" id="giftModalLink" href="#" target="_blank" rel="noopener">Открыть на Wildberries</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────── TIME MODAL ─────────────── -->
+<div class="modal" id="timeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Мне нужно время">
+  <div class="modal__backdrop" data-close-time></div>
+  <div class="modal__card time-modal">
+    <button class="modal__close" type="button" data-close-time aria-label="Закрыть">×</button>
+    <div class="time-modal__heart">♥</div>
+    <h3>Я понимаю. Правда.</h3>
+    <p>Не буду торопить и не буду делать вид, что всё решено. Возьми столько времени, сколько нужно.</p>
+    <p>Когда будешь готова — просто напиши мне. Я рядом. И никуда не ухожу.</p>
+    <div class="time-modal__actions">
+      <button class="btn btn--soft btn--small" type="button" data-close-time>Хорошо</button>
+      <a class="btn btn--primary btn--small" id="timeModalTg" href="#" target="_blank" rel="noopener" hidden>Написать мне</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/media-data.js"></script>
+<script src="js/gifts-data.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
