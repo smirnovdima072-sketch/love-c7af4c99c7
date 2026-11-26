@@ -4,7 +4,7 @@ window.CONFIG = {
   // Твоё имя для подписи (если оставить пустым — будет «Твой»).
   yourName: "",
   // Telegram без @ — если заполнишь, появится кнопка «Написать мне».
-  telegram: ""
+  telegram: "aniv_aniv"
 };
 
 window.CONTENT = {

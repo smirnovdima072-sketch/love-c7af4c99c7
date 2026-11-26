@@ -2220,6 +2220,11 @@ strong {
   text-align: center;
 }
 
+#couponTg {
+  display: block;
+  margin: 1rem auto 0;
+}
+
 /* ============ planner ============ */
 
 .planner-section {

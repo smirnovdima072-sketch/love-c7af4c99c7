@@ -12,6 +12,11 @@
   const media = window.MEDIA_DATA || { photos: [], videos: [] };
   const giftsData = window.GIFT_DATA || { groups: [], gifts: [] };
 
+  const tgName = String(cfg.telegram || "").replace(/^@/, "").trim();
+  function tgLink(text) {
+    return `https://t.me/${tgName}?text=${encodeURIComponent(text)}`;
+  }
+
   const photoMap = new Map((media.photos || []).map((p) => [p.orig, p]));
   const videoMap = new Map((media.videos || []).map((v) => [v.orig, v]));
 
@@ -565,13 +570,31 @@
 
   function updateCouponCounter() {
     const el = $("#couponCounter");
-    if (!el) return;
-    const total = (content.coupons || []).length;
-    if (activeCoupons.size === total && total > 0) {
-      el.textContent = "Ты активировала все. Я в опасности. Самой лучшей опасности в моей жизни.";
-    } else {
-      el.textContent = `Активировано ${activeCoupons.size} из ${total}. Осталось только предъявить.`;
+    if (el) {
+      const total = (content.coupons || []).length;
+      if (activeCoupons.size === total && total > 0) {
+        el.textContent = "Ты активировала все. Я в опасности. Самой лучшей опасности в моей жизни.";
+      } else {
+        el.textContent = `Активировано ${activeCoupons.size} из ${total}. Осталось только предъявить.`;
+      }
     }
+    updateCouponTg();
+  }
+
+  function updateCouponTg() {
+    const link = $("#couponTg");
+    if (!link) return;
+    if (!tgName || activeCoupons.size === 0) {
+      link.hidden = true;
+      return;
+    }
+    const chosen = Array.from(activeCoupons)
+      .sort((a, b) => a - b)
+      .map((i) => (content.coupons || [])[i]?.title)
+      .filter(Boolean);
+    const text = "Я выбрала купоны любви:\n" + chosen.map((title, i) => `${i + 1}) ${title}`).join("\n") + "\n♥";
+    link.href = tgLink(text);
+    link.hidden = false;
   }
 
   function initCoupons() {
@@ -590,7 +613,7 @@
         card.classList.add("is-active");
         card.setAttribute("aria-pressed", "true");
         spawnHearts(card, 10, 0.7);
-        toast("Купон активирован. Теперь он мой должник ♥");
+        toast("Купон активирован. Отправь мне выбор в Telegram ♥");
       }
       saveCoupons();
       updateCouponCounter();
@@ -872,11 +895,11 @@
     if (success) success.hidden = false;
     startCountdown(invite);
 
-    const text = inviteText(invite);
+    const text = inviteText(invite) + (invite.code ? `\nКод: ${invite.code}` : "");
     const share = $("#shareTg");
     if (share) {
-      const url = cfg.siteUrl || "";
-      share.href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+      share.href = tgName ? tgLink(text) : "#";
+      share.hidden = !tgName;
     }
 
     if (animate) {
@@ -1070,10 +1093,10 @@
     $("#needTime")?.addEventListener("click", () => openModal($("#timeModal")));
     $("#needTimeFinal")?.addEventListener("click", () => openModal($("#timeModal")));
 
-    if (cfg.telegram) {
+    if (tgName) {
       const link = $("#timeModalTg");
       if (link) {
-        link.href = `https://t.me/${String(cfg.telegram).replace(/^@/, "")}`;
+        link.href = tgLink("Мне нужно время. Я напишу, когда буду готова ♥");
         link.hidden = false;
       }
     }
