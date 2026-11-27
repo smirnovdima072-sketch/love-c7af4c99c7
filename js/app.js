@@ -1567,8 +1567,53 @@
     });
   }
 
+  /* ---------------- password gate ---------------- */
+  function initGate() {
+    const gate = $("#gate");
+    if (!gate) return;
+
+    const form = $("#gateForm");
+    const input = $("#gateInput");
+    const error = $("#gateError");
+    const key = "loveGate_v1";
+    const answer = "29082025";
+
+    const unlocked = () => {
+      gate.classList.add("is-hidden");
+      gate.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("no-scroll");
+      try { localStorage.setItem(key, "1"); } catch (e) { /* ignore */ }
+    };
+
+    let passed = false;
+    try { passed = localStorage.getItem(key) === "1"; } catch (e) { /* ignore */ }
+    if (passed) {
+      unlocked();
+      return;
+    }
+
+    document.body.classList.add("no-scroll");
+    setTimeout(() => input?.focus(), 250);
+
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const digits = (input?.value || "").replace(/\D/g, "");
+      if (digits === answer) {
+        unlocked();
+        return;
+      }
+      if (error) error.textContent = "Не совсем. Попробуй ещё раз ♥";
+      input?.select();
+    });
+
+    input?.addEventListener("input", () => {
+      if (error) error.textContent = "";
+    });
+  }
+
   /* ---------------- start ---------------- */
   function init() {
+    initGate();
     makePetals();
     renderPromises();
     renderTimeline();
