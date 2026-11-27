@@ -1481,7 +1481,7 @@
     const parts = invite.dateISO.split("-").map(Number);
     planner.date = new Date(parts[0], parts[1] - 1, parts[2]);
     planner.time = invite.time || "";
-    planner.activity = invite.activityId || null;
+    planner.activity = invite.activityId === "coffee" ? "bowling" : (invite.activityId || null);
     planner.custom = invite.custom || "";
     planner.view = new Date(planner.date.getFullYear(), planner.date.getMonth(), 1);
 
