@@ -1577,8 +1577,7 @@
     const error = $("#gateError");
     const success = $("#gateSuccess");
     const canvas = $("#fxCanvas");
-    const key = "loveGate_v1";
-    const answer = "29082025";
+    const answer = "736429";
     let finishing = false;
 
     const blockScroll = (e) => e.preventDefault();
@@ -1591,7 +1590,7 @@
       gate.setAttribute("aria-hidden", "true");
       document.body.classList.remove("no-scroll");
       stopBlocking();
-      try { localStorage.setItem(key, "1"); } catch (e) { /* ignore */ }
+      try { localStorage.removeItem("loveGate_v1"); } catch (e) { /* ignore */ }
       setTimeout(() => canvas?.classList.remove("is-top"), 1600);
     };
     const celebrate = () => {
@@ -1605,14 +1604,8 @@
       setTimeout(finish, 2300);
     };
 
-    let passed = false;
-    try { passed = localStorage.getItem(key) === "1"; } catch (e) { /* ignore */ }
-    if (passed) {
-      finish();
-      return;
-    }
-
     document.body.classList.add("no-scroll");
+    try { localStorage.removeItem("loveGate_v1"); } catch (e) { /* ignore */ }
     gate.addEventListener("wheel", blockScroll, { passive: false });
     gate.addEventListener("touchmove", blockScroll, { passive: false });
     setTimeout(() => input?.focus(), 250);
