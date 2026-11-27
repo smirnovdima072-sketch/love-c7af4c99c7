@@ -353,6 +353,7 @@
     galleryState.shown = 12;
     renderGalleryFilters();
     renderGallery();
+    if (id === "pets") toast("котики мы 🐾♥");
   }
 
   function initGallery() {
@@ -431,16 +432,31 @@
     }
   });
 
+  function normalizeCartEntry(entry) {
+    if (typeof entry === "string") {
+      return wantItemMap.has(String(entry)) ? { nm: String(entry), qty: 1 } : null;
+    }
+    if (entry && wantItemMap.has(String(entry.nm))) {
+      return { nm: String(entry.nm), qty: Math.max(1, Math.min(20, Math.round(Number(entry.qty) || 1))) };
+    }
+    return null;
+  }
+
   function loadCart() {
     try {
       const saved = JSON.parse(localStorage.getItem(CART_STORAGE) || "[]");
-      return Array.isArray(saved) ? saved.filter((nm) => wantItemMap.has(String(nm))).map(String) : [];
+      if (!Array.isArray(saved)) return [];
+      return saved.map(normalizeCartEntry).filter(Boolean);
     } catch (_) { return []; }
   }
   let cart = loadCart();
-  const cartItems = () => cart.map((nm) => wantItemMap.get(nm)).filter(Boolean);
-  const cartTotal = () => cartItems().reduce((sum, item) => sum + Number(item.price || 0), 0);
-  const inCart = (nm) => Boolean(nm) && cart.includes(String(nm));
+  const cartItems = () => cart.map((entry) => {
+    const base = wantItemMap.get(entry.nm);
+    return base ? { ...base, nm: entry.nm, qty: entry.qty } : null;
+  }).filter(Boolean);
+  const cartTotal = () => cartItems().reduce((sum, item) => sum + Number(item.price || 0) * item.qty, 0);
+  const cartCount = () => cart.reduce((sum, entry) => sum + entry.qty, 0);
+  const inCart = (nm) => Boolean(nm) && cart.some((entry) => entry.nm === String(nm));
 
   function saveCart() {
     try { localStorage.setItem(CART_STORAGE, JSON.stringify(cart)); } catch (_) { /* private mode */ }
@@ -490,7 +506,7 @@
     const bar = $("#wantBudgetBar");
     if (bar) bar.style.width = `${Math.min(100, (total / WANT_BUDGET) * 100)}%`;
     const count = $("#wantCartCount");
-    if (count) count.textContent = String(cart.length);
+    if (count) count.textContent = String(cartCount());
   }
 
   function renderGifts() {
@@ -588,7 +604,19 @@
 
     $("#giftModalCartBtn")?.addEventListener("click", () => {
       const item = currentBundle ? currentBundle.choices[bundleState.index] : currentGift;
-      if (item && item.nm) toggleCart(item.nm);
+      if (!item || !item.nm) return;
+      if (currentBundle?.allowQuantity) setCartQty(item.nm, inCart(item.nm) ? 0 : bundleState.qty);
+      else toggleCart(item.nm);
+    });
+
+    $("#giftQtyMinus")?.addEventListener("click", () => {
+      bundleState.qty = Math.max(1, bundleState.qty - 1);
+      renderBundle();
+    });
+
+    $("#giftQtyPlus")?.addEventListener("click", () => {
+      bundleState.qty = Math.min(20, bundleState.qty + 1);
+      renderBundle();
     });
 
     $("#giftModalVideoBtn")?.addEventListener("click", () => {
@@ -607,7 +635,7 @@
 
   let currentGift = null;
   let currentBundle = null;
-  const bundleState = { index: 0 };
+  const bundleState = { index: 0, qty: 1 };
 
   function setGiftMedia(src, name, emoji, carousel) {
     const mediaEl = $("#giftModalMedia");
@@ -628,8 +656,11 @@
     btn.hidden = !canCart;
     if (!canCart) return;
     const selected = inCart(item.nm);
+    const qty = currentBundle?.allowQuantity ? bundleState.qty : 1;
     btn.classList.toggle("is-in-cart", selected);
-    btn.textContent = selected ? "✓ убрать из корзины" : "в корзину";
+    btn.textContent = selected
+      ? "✓ убрать из корзины"
+      : qty > 1 ? `добавить ${qty} ${packWord(qty)} в корзину ♥` : "в корзину";
     btn.setAttribute("aria-pressed", String(selected));
   }
 
@@ -642,12 +673,22 @@
       desc.textContent = item.desc || "";
       desc.hidden = !item.desc;
     }
-    $("#giftModalNote").textContent = noteOverride != null ? noteOverride : (item.note || "");
-    $("#giftModalArticle").textContent = item.nm ? `Артикул Wildberries: ${item.nm}` : "";
+    const notes = [noteOverride, item.note].filter(Boolean);
+    $("#giftModalNote").textContent = notes.join(" ");
+    const article = $("#giftModalArticle");
+    if (article) {
+      const chipMatch = String(item.nm || "").match(/^ЧИПСЫ-(\d+)$/);
+      const articleText = chipMatch
+        ? `Вкус ${chipMatch[1]} из 20 — около 130 ₽ за пачку`
+        : item.nm ? `Артикул Wildberries: ${item.nm}` : "";
+      article.textContent = articleText;
+      article.hidden = !articleText;
+    }
     const price = $("#giftModalPrice");
     if (price) {
-      price.textContent = item.price ? `${Number(item.price).toLocaleString("ru-RU")} ₽` : "";
-      price.hidden = !item.price;
+      const showPrice = item.priceNote || (item.price ? `${Number(item.price).toLocaleString("ru-RU")} ₽` : "");
+      price.textContent = showPrice;
+      price.hidden = !showPrice;
     }
     const link = $("#giftModalLink");
     if (link) {
@@ -668,6 +709,8 @@
     if (!g) return;
     setGiftMedia(g.img, g.name, g.emoji || "🎁");
     $("#giftCarousel").hidden = true;
+    const qtyBox = $("#giftQuantityBox");
+    if (qtyBox) qtyBox.hidden = true;
     const back = $("#giftModalBack");
     if (back) back.hidden = !currentBundle;
     fillGiftFields(g);
@@ -690,6 +733,10 @@
       if (dots) dots.innerHTML = g.choices.map((c, i) => `
         <button type="button" data-choice-dot="${i}" class="${i === bundleState.index ? "is-active" : ""}" aria-label="Вариант ${i + 1}" aria-pressed="${i === bundleState.index}"></button>`).join("");
     }
+    const qtyBox = $("#giftQuantityBox");
+    if (qtyBox) qtyBox.hidden = !g.allowQuantity;
+    const qtyOut = $("#giftQuantity");
+    if (qtyOut) qtyOut.textContent = String(bundleState.qty);
     const back = $("#giftModalBack");
     if (back) back.hidden = true;
   }
@@ -714,29 +761,67 @@
     currentGift = g;
     currentBundle = g.bundle && g.choices && g.choices.length ? g : null;
     bundleState.index = 0;
+    bundleState.qty = 1;
     if (currentBundle) renderBundle();
     else renderGiftDetail(g);
     openModal(modal);
   }
 
   /* ---------------- cart actions ---------------- */
+  function packWord(n) {
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return "пачку";
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return "пачки";
+    return "пачек";
+  }
+
+  function afterCartChange(nm) {
+    saveCart();
+    renderGifts();
+    const activeItem = currentBundle ? currentBundle.choices[bundleState.index] : currentGift;
+    if (activeItem && String(activeItem.nm) === nm) syncCartButton(activeItem);
+    if ($("#cartModal")?.classList.contains("is-open")) renderCart();
+  }
+
   function toggleCart(nm) {
     nm = String(nm || "");
     if (!wantItemMap.has(nm)) return;
-    const i = cart.indexOf(nm);
+    const i = cart.findIndex((entry) => entry.nm === nm);
     if (i >= 0) {
       cart.splice(i, 1);
       toast("Убрала из корзины");
     } else {
-      cart.push(nm);
+      cart.push({ nm, qty: 1 });
       toast("Добавила в корзину ♥");
     }
-    saveCart();
-    renderGifts();
-    const selected = inCart(nm);
-    const activeItem = currentBundle ? currentBundle.choices[bundleState.index] : currentGift;
-    if (activeItem && String(activeItem.nm) === nm) syncCartButton(activeItem);
-    if ($("#cartModal")?.classList.contains("is-open")) renderCart();
+    afterCartChange(nm);
+  }
+
+  function removeFromCart(nm) {
+    nm = String(nm || "");
+    const before = cart.length;
+    cart = cart.filter((entry) => entry.nm !== nm);
+    if (before !== cart.length) toast("Убрала из корзины");
+    afterCartChange(nm);
+  }
+
+  function setCartQty(nm, qty) {
+    nm = String(nm || "");
+    if (!wantItemMap.has(nm)) return;
+    qty = Math.max(0, Math.min(20, Math.round(Number(qty) || 0)));
+    const i = cart.findIndex((entry) => entry.nm === nm);
+    if (qty === 0) {
+      if (i >= 0) cart.splice(i, 1);
+      toast("Убрала из корзины");
+    } else if (i >= 0) {
+      cart[i].qty = qty;
+      toast(`Теперь ${qty} ${packWord(qty)} в корзине ♥`);
+    } else {
+      cart.push({ nm, qty });
+      toast(`Добавила ${qty} ${packWord(qty)} в корзину ♥`);
+    }
+    afterCartChange(nm);
   }
 
   function renderCart() {
@@ -748,8 +833,13 @@
         ${item.img ? `<img src="${esc(item.img)}" alt="">` : `<span aria-hidden="true">🎁</span>`}
         <span class="cart-item__text">
           <b>${esc(item.name)}</b>
-          <small>арт. ${esc(item.nm)}${item.bundleName ? ` · ${esc(item.bundleName)}` : ""}</small>
-          <em>${Number(item.price || 0).toLocaleString("ru-RU")} ₽</em>
+          <small>арт. ${esc(item.nm)}${item.bundleName ? ` · ${esc(item.bundleName)}` : ""}${item.qty > 1 ? ` · ${item.qty} шт.` : ""}</small>
+          <em>${(Number(item.price || 0) * item.qty).toLocaleString("ru-RU")} ₽</em>
+        </span>
+        <span class="cart-item__qty">
+          <button type="button" data-cart-qty="-1" data-cart-nm="${esc(item.nm)}" aria-label="Уменьшить количество">−</button>
+          <span>${item.qty}</span>
+          <button type="button" data-cart-qty="1" data-cart-nm="${esc(item.nm)}" aria-label="Увеличить количество">+</button>
         </span>
         <button class="cart-item__remove" type="button" data-cart-remove="${esc(item.nm)}" aria-label="Удалить из корзины">×</button>
       </div>`).join("") : `<p class="cart-empty">Пока пусто. Добавь то, что хочется ♥</p>`;
@@ -757,7 +847,7 @@
     const total = cartTotal();
     const left = WANT_BUDGET - total;
     const totalEl = $("#cartTotal");
-    if (totalEl) totalEl.textContent = items.length ? `Итого: ${total.toLocaleString("ru-RU")} ₽ · ${items.length} шт.` : "Пока пусто ♥";
+    if (totalEl) totalEl.textContent = items.length ? `Итого: ${total.toLocaleString("ru-RU")} ₽ · ${cartCount()} шт.` : "Пока пусто ♥";
     const leftEl = $("#cartLeft");
     if (leftEl) leftEl.textContent = items.length
       ? (left >= 0
@@ -768,7 +858,7 @@
     const tg = $("#cartTelegram");
     if (tg) {
       if (items.length && tgName) {
-        const lines = items.map((it, i) => `${i + 1}. ${it.name} — арт. ${it.nm}, ${Number(it.price || 0).toLocaleString("ru-RU")} ₽`);
+        const lines = items.map((it, i) => `${i + 1}. ${it.name}${it.qty > 1 ? ` × ${it.qty}` : ""} — арт. ${it.nm}, ${(Number(it.price || 0) * it.qty).toLocaleString("ru-RU")} ₽`);
         const text = `Привет! Я посмотрела «что ты хочешь» и выбрала ♥\n\n${lines.join("\n")}\n\nИтого: ${total.toLocaleString("ru-RU")} ₽\nНе раньше 10 декабря 🥺`;
         tg.href = tgLink(text);
         tg.hidden = false;
@@ -788,8 +878,15 @@
   function initCart() {
     $$("[data-close-cart]").forEach((el) => el.addEventListener("click", () => closeModal($("#cartModal"))));
     $("#cartItems")?.addEventListener("click", (e) => {
+      const qtyBtn = e.target.closest("[data-cart-qty]");
+      if (qtyBtn) {
+        const nm = qtyBtn.dataset.cartNm;
+        const entry = cart.find((item) => item.nm === nm);
+        if (entry) setCartQty(nm, entry.qty + Number(qtyBtn.dataset.cartQty));
+        return;
+      }
       const btn = e.target.closest("[data-cart-remove]");
-      if (btn) toggleCart(btn.dataset.cartRemove);
+      if (btn) removeFromCart(btn.dataset.cartRemove);
     });
     $("#cartClear")?.addEventListener("click", () => {
       if (!cart.length) return;
@@ -1414,11 +1511,16 @@
 
   function closeLightbox() {
     const box = $("#lightbox");
-    if (!box) return;
+    if (!box || !box.classList.contains("is-open")) return;
     box.classList.remove("is-open");
     box.setAttribute("aria-hidden", "true");
     const stage = $("#lightboxStage");
-    if (stage) stage.innerHTML = "";
+    if (stage) {
+      stage.querySelector("video")?.pause();
+      stage.innerHTML = "";
+    }
+    lb.items = [];
+    lb.index = 0;
     if (!document.querySelector(".modal.is-open")) document.body.classList.remove("no-scroll");
   }
 
@@ -1429,17 +1531,30 @@
   }
 
   function initLightbox() {
-    $("#lightboxClose")?.addEventListener("click", closeLightbox);
+    const box = $("#lightbox");
+    box?.addEventListener("click", (e) => {
+      if (e.target.closest?.("[data-close-lightbox], #lightboxClose")) {
+        e.preventDefault();
+        closeLightbox();
+        return;
+      }
+      if (e.target === box || e.target.id === "lightboxStage") closeLightbox();
+    });
+
     $("#lightboxPrev")?.addEventListener("click", () => moveLightbox(-1));
     $("#lightboxNext")?.addEventListener("click", () => moveLightbox(1));
-    $("#lightbox")?.addEventListener("click", (e) => {
-      if (e.target.id === "lightbox") closeLightbox();
-    });
+
     document.addEventListener("keydown", (e) => {
       if (!$("#lightbox")?.classList.contains("is-open")) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeLightbox();
+        return;
+      }
       if (e.key === "ArrowLeft") moveLightbox(-1);
       if (e.key === "ArrowRight") moveLightbox(1);
     });
+
     document.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-photo-src], [data-video-src]");
       if (!btn) return;
@@ -1855,7 +1970,7 @@
     $$("[data-hearts]").forEach((btn) => {
       btn.addEventListener("click", () => {
         spawnHearts(btn, 26, 1.2);
-        toast("И я тебя люблю.");
+        toast("И я тебя люблю ❤️‍🔥");
       });
     });
   }
