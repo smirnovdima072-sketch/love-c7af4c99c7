@@ -945,8 +945,6 @@
     updateSelectedLine();
     renderCalendar();
     updateTicket();
-    showAccepted(invite, false);
-    goStep(3, false);
   }
 
   function initPlanner() {
