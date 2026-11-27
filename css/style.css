@@ -3223,6 +3223,33 @@ strong {
   text-align: center;
 }
 
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--plum-soft);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.volume-control input[type="range"] {
+  width: 130px;
+  accent-color: var(--rose);
+  cursor: pointer;
+}
+
+.volume-control output {
+  min-width: 3.4em;
+  color: var(--rose-dark);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
 .music-section__note {
   flex: 1 1 320px;
   max-width: 520px;
