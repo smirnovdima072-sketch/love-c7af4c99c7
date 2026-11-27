@@ -593,8 +593,7 @@
 
     $("#giftModalVideoBtn")?.addEventListener("click", () => {
       openLightbox([
-        { type: "video", src: "assets/videos/v15.mp4", caption: "Как пришел подарочек — розы, которые я делал" },
-        { type: "video", src: "assets/videos/v16.mp4", caption: "Как пришел подарочек — момент из подарка" }
+        { type: "video", src: "assets/videos/v16.mp4", caption: "Как пришел подарок ♥" }
       ], 0);
     });
 
