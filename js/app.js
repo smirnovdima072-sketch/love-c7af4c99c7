@@ -1324,28 +1324,28 @@
       label: "Нежно",
       melody: [523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25, 587.33, 523.25, 659.25, 783.99, 880, 1046.5, 880, 783.99, 659.25],
       bass: [130.81, 146.83, 174.61, 196],
-      step: 520, noteDur: 1.1, bassDur: 2.2, volume: 0.16,
+      step: 520, noteDur: 1.1, bassDur: 2.2, volume: 0.20,
       filter: 1800, delay: 0.34, feedback: 0.22, wet: 0.25, lead: "triangle"
     },
     night: {
       label: "Ночь",
       melody: [392, 440, 523.25, 493.88, 392, 349.23, 392, 440, 329.63, 392, 440, 523.25, 493.88, 440, 392, 349.23],
       bass: [98, 110, 130.81, 87.31],
-      step: 720, noteDur: 1.7, bassDur: 3.2, volume: 0.13,
+      step: 720, noteDur: 1.7, bassDur: 3.2, volume: 0.17,
       filter: 1100, delay: 0.48, feedback: 0.3, wet: 0.32, lead: "sine"
     },
     morning: {
       label: "Тёплое утро",
       melody: [659.25, 783.99, 880, 987.77, 880, 783.99, 659.25, 587.33, 659.25, 783.99, 1046.5, 987.77, 880, 783.99, 659.25, 587.33],
       bass: [164.81, 196, 220, 174.61],
-      step: 440, noteDur: 0.9, bassDur: 1.8, volume: 0.14,
+      step: 440, noteDur: 0.9, bassDur: 1.8, volume: 0.18,
       filter: 2600, delay: 0.24, feedback: 0.16, wet: 0.2, lead: "triangle"
     },
     home: {
       label: "Мы дома",
       melody: [440, 493.88, 587.33, 523.25, 440, 392, 440, 493.88, 349.23, 392, 440, 523.25, 493.88, 440, 392, 349.23],
       bass: [110, 130.81, 146.83, 98],
-      step: 600, noteDur: 1.4, bassDur: 2.8, volume: 0.15,
+      step: 600, noteDur: 1.4, bassDur: 2.8, volume: 0.19,
       filter: 1500, delay: 0.4, feedback: 0.26, wet: 0.28, lead: "sine"
     }
   };
