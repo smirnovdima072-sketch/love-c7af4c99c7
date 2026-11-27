@@ -482,6 +482,18 @@ strong {
   transform: translateY(-2px);
 }
 
+.gate__clue {
+  margin: 0.95rem 0 0;
+  padding: 0.55rem 0.8rem;
+  border: 1px dashed rgba(217, 93, 120, 0.35);
+  border-radius: 12px;
+  background: rgba(255, 246, 249, 0.75);
+  color: var(--plum-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .gate__error {
   min-height: 1.4em;
   margin: 0.9rem 0 0;
@@ -494,6 +506,7 @@ strong {
 .gate.is-success .gate__title,
 .gate.is-success .gate__hint,
 .gate.is-success .gate__form,
+.gate.is-success .gate__clue,
 .gate.is-success .gate__error {
   display: none;
 }
