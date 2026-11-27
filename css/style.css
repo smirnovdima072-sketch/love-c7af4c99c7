@@ -2089,27 +2089,45 @@ strong {
   top: 0.7rem;
   right: 0.7rem;
   z-index: 3;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid rgba(217, 93, 120, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 999px;
-  background: rgba(255, 250, 246, 0.94);
-  color: var(--rose-dark);
-  font-size: 0.62rem;
+  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+  color: #fff;
+  font-size: 0.64rem;
   font-weight: 800;
-  box-shadow: 0 3px 10px rgba(59, 33, 48, 0.1);
-  transition: transform 0.3s var(--ease), background 0.3s, color 0.3s;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 16px rgba(184, 64, 93, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s, background 0.3s;
+}
+
+.gift-card__cart span {
+  font-size: 0.8rem;
+  line-height: 0.8;
 }
 
 .gift-card__cart:hover {
-  transform: scale(1.06);
-  background: var(--rose-dark);
-  color: #fff;
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: 0 10px 22px rgba(184, 64, 93, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .gift-card__cart.is-in-cart {
+  background: linear-gradient(135deg, #fff 0%, var(--rose-pale) 100%);
   border-color: var(--rose-dark);
-  background: var(--rose-dark);
-  color: #fff;
+  color: var(--rose-dark);
+  text-shadow: none;
+}
+
+.gift-card__cart.is-cart-add {
+  animation: cartPop 0.7s var(--ease);
+}
+
+.gift-card__cart.is-cart-remove {
+  animation: cartShake 0.6s var(--ease);
 }
 
 .gift-card__media {
@@ -4032,13 +4050,153 @@ strong {
 }
 
 .gift-modal__cart {
+  position: relative;
+  min-height: 50px;
   margin: 0 0.6rem 1.2rem 0;
+  padding: 0.8rem 1.9rem;
+  border: 0;
+  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(184, 64, 93, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.gift-modal__cart span {
+  font-size: 1.1rem;
+  line-height: 0.8;
+}
+
+.gift-modal__cart::after {
+  content: "✦";
+  position: absolute;
+  top: 0.45rem;
+  right: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+}
+
+.gift-modal__cart:hover {
+  box-shadow: 0 16px 34px rgba(184, 64, 93, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .gift-modal__cart.is-in-cart {
-  border-color: var(--rose-dark);
-  background: var(--rose-dark);
-  color: #fff;
+  background: linear-gradient(135deg, #fff 0%, var(--rose-pale) 100%);
+  border: 1px solid var(--rose-dark);
+  color: var(--rose-dark);
+  box-shadow: 0 8px 20px rgba(184, 64, 93, 0.2);
+}
+
+.gift-modal__cart.is-cart-add {
+  animation: cartPop 0.7s var(--ease);
+}
+
+.gift-modal__cart.is-cart-remove {
+  animation: cartShake 0.6s var(--ease);
+}
+
+.gift-modal__custom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0 0 0.9rem;
+}
+
+.gift-modal__custom label {
+  color: var(--plum-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.gift-modal__custom input {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(217, 93, 120, 0.35);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--plum);
+  font: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.gift-modal__custom input:focus {
+  outline: none;
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px rgba(217, 93, 120, 0.16);
+}
+
+@keyframes cartPop {
+  0% { transform: scale(1); }
+  32% { transform: scale(1.18) rotate(-3deg); }
+  60% { transform: scale(0.94) rotate(2deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cartShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px) rotate(-2deg); }
+  50% { transform: translateX(6px) rotate(2deg); }
+  75% { transform: translateX(-3px); }
+}
+
+@keyframes cartFly {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.25); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -80px))) scale(0.55); }
+}
+
+@keyframes cartHeart {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  25% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--hx, 0px)), calc(-50% + var(--hy, -60px))) scale(0.65); }
+}
+
+.cart-heart {
+  position: fixed;
+  z-index: 1200;
+  pointer-events: none;
+  color: var(--rose);
+  font-size: 1rem;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(217, 93, 120, 0.55);
+  animation: cartHeart 0.78s var(--ease) forwards;
+}
+
+@keyframes cartBump {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.16); box-shadow: 0 0 0 8px rgba(217, 93, 120, 0.2); }
+  70% { transform: scale(0.96); }
+}
+
+@keyframes cartDrop {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(0.9); box-shadow: 0 0 0 6px rgba(217, 93, 120, 0.12); }
+  70% { transform: scale(1.05); }
+}
+
+.cart-fly {
+  position: fixed;
+  z-index: 1200;
+  pointer-events: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  animation: cartFly 0.85s var(--ease) forwards;
+}
+
+.cart-fly--add {
+  color: var(--rose);
+  text-shadow: 0 0 16px rgba(217, 93, 120, 0.7);
+}
+
+.cart-fly--remove {
+  color: var(--plum-soft);
+}
+
+.want-cart.is-cart-bump {
+  animation: cartBump 0.72s var(--ease);
+}
+
+.want-cart.is-cart-drop {
+  animation: cartDrop 0.72s var(--ease);
 }
 
 .gift-modal__quantity {

@@ -8,7 +8,7 @@
   <meta name="description" content="Письмо, наша история и приглашение на свидание — только для тебя.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/style.css?v=final1">
+  <link rel="stylesheet" href="css/style.css?v=final3">
 </head>
 <body>
 
@@ -604,13 +604,17 @@
           <div class="gift-carousel__dots" id="giftChoiceDots"></div>
         </div>
       </div>
+      <div class="gift-modal__custom" id="giftCustomBox" hidden>
+        <label for="giftCustomName">Напиши свой вкус</label>
+        <input id="giftCustomName" type="text" maxlength="60" autocomplete="off" placeholder="например, Lay's — сыр с халапеньо">
+      </div>
       <div class="gift-modal__quantity" id="giftQuantityBox" hidden>
         <span>пачек</span>
         <button type="button" id="giftQtyMinus" aria-label="Меньше пачек">−</button>
         <output id="giftQuantity">1</output>
         <button type="button" id="giftQtyPlus" aria-label="Больше пачек">+</button>
       </div>
-      <button class="btn btn--soft btn--small gift-modal__cart" id="giftModalCartBtn" type="button" hidden>в корзину</button>
+      <button class="btn btn--soft btn--small gift-modal__cart" id="giftModalCartBtn" type="button" hidden><span aria-hidden="true">♥</span> В корзину</button>
       <a class="btn btn--primary btn--small" id="giftModalLink" href="#" target="_blank" rel="noopener">Открыть на Wildberries</a>
       <button class="btn btn--soft btn--small gift-modal__video" id="giftModalVideoBtn" type="button" hidden><span aria-hidden="true">🎁</span> Как пришел подарок ♥</button>
     </div>
@@ -657,9 +661,9 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/media-data.js?v=final1"></script>
-<script src="js/gifts-data.js?v=final1"></script>
-<script src="js/data.js?v=final1"></script>
-<script src="js/app.js?v=final1"></script>
+<script src="js/media-data.js?v=final3"></script>
+<script src="js/gifts-data.js?v=final3"></script>
+<script src="js/data.js?v=final3"></script>
+<script src="js/app.js?v=final3"></script>
 </body>
 </html>
