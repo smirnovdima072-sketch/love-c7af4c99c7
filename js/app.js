@@ -1575,31 +1575,53 @@
     const form = $("#gateForm");
     const input = $("#gateInput");
     const error = $("#gateError");
+    const success = $("#gateSuccess");
+    const canvas = $("#fxCanvas");
     const key = "loveGate_v1";
     const answer = "29082025";
+    let finishing = false;
 
-    const unlocked = () => {
+    const blockScroll = (e) => e.preventDefault();
+    const stopBlocking = () => {
+      gate.removeEventListener("wheel", blockScroll);
+      gate.removeEventListener("touchmove", blockScroll);
+    };
+    const finish = () => {
       gate.classList.add("is-hidden");
       gate.setAttribute("aria-hidden", "true");
       document.body.classList.remove("no-scroll");
+      stopBlocking();
       try { localStorage.setItem(key, "1"); } catch (e) { /* ignore */ }
+      setTimeout(() => canvas?.classList.remove("is-top"), 1600);
+    };
+    const celebrate = () => {
+      if (finishing) return;
+      finishing = true;
+      gate.classList.add("is-success");
+      if (success) success.hidden = false;
+      canvas?.classList.add("is-top");
+      spawnConfetti(130);
+      spawnHearts(success || gate, 26, 1);
+      setTimeout(finish, 2300);
     };
 
     let passed = false;
     try { passed = localStorage.getItem(key) === "1"; } catch (e) { /* ignore */ }
     if (passed) {
-      unlocked();
+      finish();
       return;
     }
 
     document.body.classList.add("no-scroll");
+    gate.addEventListener("wheel", blockScroll, { passive: false });
+    gate.addEventListener("touchmove", blockScroll, { passive: false });
     setTimeout(() => input?.focus(), 250);
 
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
       const digits = (input?.value || "").replace(/\D/g, "");
       if (digits === answer) {
-        unlocked();
+        celebrate();
         return;
       }
       if (error) error.textContent = "Не совсем. Попробуй ещё раз ♥";

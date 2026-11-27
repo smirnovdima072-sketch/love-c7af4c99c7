@@ -380,9 +380,12 @@ strong {
   display: grid;
   place-items: center;
   padding: 1.5rem;
+  overscroll-behavior: contain;
   background:
-    radial-gradient(700px 500px at 50% 22%, rgba(247, 200, 211, 0.78), transparent 65%),
-    linear-gradient(160deg, #fff7f3, #fde9ee);
+    radial-gradient(700px 500px at 50% 22%, rgba(247, 200, 211, 0.42), transparent 65%),
+    rgba(255, 247, 243, 0.66);
+  backdrop-filter: blur(10px) saturate(1.05);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
   transition: opacity 0.7s var(--ease), visibility 0.7s;
 }
 
@@ -486,6 +489,71 @@ strong {
   font-size: 0.95rem;
 }
 
+.gate.is-success .gate__heart,
+.gate.is-success .gate__eyebrow,
+.gate.is-success .gate__title,
+.gate.is-success .gate__hint,
+.gate.is-success .gate__form,
+.gate.is-success .gate__error {
+  display: none;
+}
+
+.gate__success {
+  position: relative;
+  text-align: center;
+}
+
+.gate__success-heart {
+  color: var(--rose);
+  font-size: 3rem;
+  line-height: 1;
+  animation: heartbeat 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 22px rgba(184, 64, 93, 0.28));
+}
+
+.gate__success-title {
+  margin: 0.65rem 0 0.7rem;
+  color: var(--plum);
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 7vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.gate__success-note {
+  margin: 0;
+  color: var(--plum-soft);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.gate__sparks {
+  position: absolute;
+  inset: -22px;
+  pointer-events: none;
+}
+
+.gate__sparks span {
+  position: absolute;
+  color: var(--rose);
+  font-size: 1.1rem;
+  opacity: 0;
+  animation: gateFloat 1.6s ease-out forwards;
+}
+
+.gate__sparks span:nth-child(1) { left: 8%;  top: 46%; animation-delay: 0.05s; }
+.gate__sparks span:nth-child(2) { left: 24%; top: 16%; animation-delay: 0.25s; }
+.gate__sparks span:nth-child(3) { left: 52%; top: 8%;  animation-delay: 0.45s; }
+.gate__sparks span:nth-child(4) { left: 78%; top: 24%; animation-delay: 0.15s; }
+.gate__sparks span:nth-child(5) { left: 90%; top: 58%; animation-delay: 0.35s; }
+.gate__sparks span:nth-child(6) { left: 62%; top: 78%; animation-delay: 0.55s; }
+
+@keyframes gateFloat {
+  0%   { opacity: 0; transform: translateY(12px) scale(0.4) rotate(-15deg); }
+  35%  { opacity: 0.95; }
+  100% { opacity: 0; transform: translateY(-70px) scale(1.25) rotate(15deg); }
+}
+
 /* ============ scroll progress ============ */
 
 .scroll-progress {
@@ -511,6 +579,10 @@ strong {
   pointer-events: none;
   width: 100%;
   height: 100%;
+}
+
+.fx-canvas.is-top {
+  z-index: 12000;
 }
 
 /* ============ navigation ============ */
