@@ -1022,13 +1022,13 @@ window.GIFT_DATA = {
                                       },
                                       {
                                           "nm":  "ЧИПСЫ-8",
-                                          "name":  "Lay\u0027s Max — Додо пицца пепперено",
+                                          "name":  "Lay\u0027s Max — Додо пицца пепперони",
                                           "brand":  "Lay\u0027s Max",
                                           "subject":  "Чипсы, 1 пачка",
                                           "img":  "assets/chips/lays-max-dodo.png",
                                           "url":  "https://www.wildberries.ru/catalog/0/search.aspx?search=Lays",
                                           "price":  130,
-                                          "desc":  "Lay\u0027s Max — Додо пицца пепперено. Одна пачка — примерно 130 ₽. Листай, чтобы выбрать свой вкус ♥",
+                                          "desc":  "Lay\u0027s Max — Додо пицца пепперони. Одна пачка — примерно 130 ₽. Листай, чтобы выбрать свой вкус ♥",
                                           "note":  ""
                                       },
                                       {

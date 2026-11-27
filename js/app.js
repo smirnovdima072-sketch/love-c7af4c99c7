@@ -62,6 +62,26 @@
     toastTimer = setTimeout(() => t.classList.remove("is-visible"), 2800);
   }
 
+  let unlockTimer = null;
+  function hideUnlockHint() {
+    const box = $("#unlockPopup");
+    if (!box) return;
+    clearTimeout(unlockTimer);
+    box.classList.remove("is-visible");
+    setTimeout(() => { if (!box.classList.contains("is-visible")) box.hidden = true; }, 400);
+  }
+
+  function showUnlockHint() {
+    const box = $("#unlockPopup");
+    if (!box || readFlag(WANT_HINT_KEY)) return;
+    writeFlag(WANT_HINT_KEY, true);
+    box.hidden = false;
+    requestAnimationFrame(() => box.classList.add("is-visible"));
+    spawnHearts(box, 12, 0.8);
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(hideUnlockHint, 10000);
+  }
+
   function animateCartButton(btn, action) {
     if (!btn) return;
     const cls = action === "add" ? "is-cart-add" : "is-cart-remove";
@@ -474,6 +494,25 @@
 
   /* ---------------- gifts ---------------- */
   const giftState = { group: "all", shown: 12, filtered: [] };
+  const WANT_UNLOCK_KEY = "loveWantUnlocked_v1";
+  const WANT_HINT_KEY = "loveWantUnlockHint_v1";
+  const WANT_NEED_TIME_KEY = "loveWantNeedTime_v1";
+  const readFlag = (key) => { try { return localStorage.getItem(key) === "1"; } catch (_) { return false; } };
+  const writeFlag = (key, value) => { try { localStorage.setItem(key, value ? "1" : "0"); } catch (_) { /* ignore */ } };
+  let wantIsUnlocked = readFlag(WANT_UNLOCK_KEY);
+
+  function setWantUnlocked(value, withPopup = false) {
+    const wasUnlocked = wantIsUnlocked;
+    wantIsUnlocked = Boolean(value);
+    writeFlag(WANT_UNLOCK_KEY, wantIsUnlocked);
+    if (!wantIsUnlocked && giftState.group === "want") {
+      giftState.group = "all";
+      giftState.shown = 12;
+    }
+    renderGiftFilters();
+    renderGifts();
+    if (!wasUnlocked && wantIsUnlocked && withPopup) showUnlockHint();
+  }
 
   /* ---------------- wishlist cart ---------------- */
   const WANT_BUDGET = 3000;
@@ -562,23 +601,30 @@
   function renderGiftFilters() {
     const holder = $("#giftFilters");
     if (!holder) return;
-    const counts = { all: gifts.length };
-    gifts.forEach((g) => { counts[g.group] = (counts[g.group] || 0) + 1; });
-    const all = `<button type="button" data-gift-filter="all" class="${giftState.group === "all" ? "is-active" : ""}">Все <small>${gifts.length}</small></button>`;
-    const rest = giftGroups.map((g) => `
-      <button type="button" data-gift-filter="${esc(g.id)}" class="${giftState.group === g.id ? "is-active" : ""}">
-        ${esc(g.emoji)} ${esc(g.title)} <small>${counts[g.id] || 0}</small>
-      </button>`).join("");
+    const visible = wantIsUnlocked ? gifts : gifts.filter((g) => g.group !== "want");
+    const counts = { all: visible.length };
+    visible.forEach((g) => { counts[g.group] = (counts[g.group] || 0) + 1; });
+    const all = `<button type="button" data-gift-filter="all" class="${giftState.group === "all" ? "is-active" : ""}">Все <small>${visible.length}</small></button>`;
+    const rest = giftGroups.map((g) => {
+      const locked = g.id === "want" && !wantIsUnlocked;
+      return `
+      <button type="button" data-gift-filter="${esc(g.id)}" class="${giftState.group === g.id ? "is-active" : ""} ${locked ? "is-locked" : ""}" ${locked ? 'aria-disabled="true"' : ""}>
+        ${locked ? "🔒" : esc(g.emoji)} ${esc(g.title)} <small>${locked ? "замок" : (counts[g.id] || 0)}</small>
+      </button>`;
+    }).join("");
     holder.innerHTML = all + rest;
   }
 
   function filteredGifts() {
+    if (!wantIsUnlocked) {
+      return giftState.group === "want" ? [] : gifts.filter((g) => g.group !== "want");
+    }
     return giftState.group === "all" ? gifts : gifts.filter((g) => g.group === giftState.group);
   }
 
   function updateWantBanner() {
     const banner = $("#wantBanner");
-    if (banner) banner.hidden = giftState.group !== "want";
+    if (banner) banner.hidden = giftState.group !== "want" || !wantIsUnlocked;
     const total = cartTotal();
     const left = WANT_BUDGET - total;
     const leftEl = $("#wantBudgetLeft");
@@ -652,8 +698,25 @@
 
     $("#giftFilters")?.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-gift-filter]");
-      if (btn) setGiftFilter(btn.dataset.giftFilter);
+      if (!btn) return;
+      if (btn.dataset.giftFilter === "want" && !wantIsUnlocked) {
+        btn.classList.remove("is-denied");
+        void btn.offsetWidth;
+        btn.classList.add("is-denied");
+        toast("Сначала выбери, куда мы идём ♥");
+        $("#planner")?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+        return;
+      }
+      setGiftFilter(btn.dataset.giftFilter);
     });
+
+    $("#unlockPopupGo")?.addEventListener("click", () => {
+      hideUnlockHint();
+      setGiftFilter("want");
+      $("#gifts")?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+    });
+
+    $("#unlockPopupClose")?.addEventListener("click", hideUnlockHint);
 
     $("#giftsMore")?.addEventListener("click", () => {
       giftState.shown += 12;
@@ -978,7 +1041,7 @@
     if (tg) {
       if (items.length && tgName) {
         const lines = items.map((it, i) => `${i + 1}. ${it.name}${it.qty > 1 ? ` × ${it.qty}` : ""}${it.custom ? "" : ` — арт. ${it.nm}`}, ${(Number(it.price || 0) * it.qty).toLocaleString("ru-RU")} ₽`);
-        const text = `Привет! Я посмотрела «что ты хочешь» и выбрала ♥\n\n${lines.join("\n")}\n\nИтого: ${total.toLocaleString("ru-RU")} ₽\nНе раньше 10 декабря 🥺`;
+        const text = `Я посмотрела «что ты хочешь» и выбрала ♥\n\n${lines.join("\n")}\n\nИтого: ${total.toLocaleString("ru-RU")} ₽\nНе раньше 10 декабря 🥺`;
         tg.href = tgLink(text);
         tg.hidden = false;
       } else {
@@ -1112,7 +1175,8 @@
     time: "",
     view: new Date(TODAY.getFullYear(), TODAY.getMonth(), 1),
     accepted: false,
-    invite: null
+    invite: null,
+    needTime: readFlag(WANT_NEED_TIME_KEY)
   };
 
   function renderActivities() {
@@ -1270,7 +1334,10 @@
       el.classList.toggle("is-active", n === step);
       el.classList.toggle("is-done", n < step);
     });
-    if (step === 3) updateTicket();
+    if (step === 3) {
+      updateTicket();
+      if (!planner.needTime) setWantUnlocked(true, true);
+    }
     if (scroll && window.innerWidth < 900) {
       $("#planner")?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
     }
@@ -1396,6 +1463,9 @@
     updateTicket();
     const invite = buildInvite();
     try { localStorage.setItem("ourDateInvite_v1", JSON.stringify(invite)); } catch (e) { /* ignore */ }
+    planner.needTime = false;
+    writeFlag(WANT_NEED_TIME_KEY, false);
+    setWantUnlocked(true, true);
     showAccepted(invite, true);
     toast("Приглашение принято. Я уже придумываю детали ♥");
   }
@@ -1425,6 +1495,8 @@
     updateSelectedLine();
     renderCalendar();
     updateTicket();
+    if (planner.needTime) setWantUnlocked(false);
+    else setWantUnlocked(true);
   }
 
   function initPlanner() {
@@ -1568,8 +1640,15 @@
     $$("[data-close-gift]").forEach((el) => el.addEventListener("click", () => closeModal($("#giftModal"))));
     $$("[data-close-time]").forEach((el) => el.addEventListener("click", () => closeModal($("#timeModal"))));
 
-    $("#needTime")?.addEventListener("click", () => openModal($("#timeModal")));
-    $("#needTimeFinal")?.addEventListener("click", () => openModal($("#timeModal")));
+    const askForTime = () => {
+      planner.needTime = true;
+      writeFlag(WANT_NEED_TIME_KEY, true);
+      hideUnlockHint();
+      if (wantIsUnlocked) setWantUnlocked(false);
+      openModal($("#timeModal"));
+    };
+    $("#needTime")?.addEventListener("click", askForTime);
+    $("#needTimeFinal")?.addEventListener("click", askForTime);
 
     if (tgName) {
       const link = $("#timeModalTg");
