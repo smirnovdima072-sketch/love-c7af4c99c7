@@ -8,7 +8,7 @@
   <meta name="description" content="Письмо, наша история и приглашение на свидание — только для тебя.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/style.css?v=vol1">
+  <link rel="stylesheet" href="css/style.css?v=wish1">
 </head>
 <body>
 
@@ -278,11 +278,26 @@
 
       <div class="gift-stats reveal">
         <div class="gift-stat"><strong id="giftCount">0</strong><span>подарков</span></div>
-        <div class="gift-stat"><strong>6</strong><span>поводов</span></div>
+        <div class="gift-stat"><strong>7</strong><span>поводов</span></div>
         <div class="gift-stat"><strong>∞</strong><span>любви</span></div>
       </div>
 
       <div class="filters reveal" id="giftFilters" role="group" aria-label="Фильтр подарков"></div>
+
+      <div class="want-banner reveal" id="wantBanner" hidden>
+        <div class="want-banner__head">
+          <span class="want-banner__emoji" aria-hidden="true">💌</span>
+          <div>
+            <h3>Что ты хочешь</h3>
+            <p>Выбирай то, что откликнется. Остальное я придумаю сам и добавлю от себя.</p>
+          </div>
+          <div class="want-banner__budget"><span>бюджет</span><strong>3000 ₽</strong></div>
+        </div>
+        <div class="want-banner__meta">
+          <span>📅 не раньше 10 декабря — чтобы я успел купить, проверить и красиво отдать</span>
+          <span class="want-banner__flare">а если чуть больше — ничего страшно, мне для тебя ничего не жалко ♥</span>
+        </div>
+      </div>
 
       <div class="gift-grid" id="giftGrid"></div>
 
@@ -335,7 +350,11 @@
 
         <article class="handmade-card reveal">
           <div class="handmade-card__media">
-            <img src="assets/photos/p68.jpg" alt="Розы, сделанные вручную">
+            <button class="media-thumb media-thumb--roses" type="button" data-video-src="assets/videos/v15.mp4" data-caption="Розы, которые я делал для тебя — процесс создания" aria-label="Смотреть видео: процесс создания роз">
+              <video src="assets/videos/v15.mp4" preload="auto" autoplay loop muted playsinline aria-hidden="true"></video>
+              <span class="play-badge" aria-hidden="true">▶</span>
+              <span class="media-thumb__hint">процесс создания</span>
+            </button>
           </div>
           <div class="handmade-card__body">
             <span class="handmade-card__tag">🌹 самый важный подарок</span>
@@ -563,12 +582,15 @@
     <button class="modal__close" type="button" data-close-gift aria-label="Закрыть">×</button>
     <div class="gift-modal__media" id="giftModalMedia"></div>
     <div class="gift-modal__body">
+      <button class="text-link gift-modal__back" id="giftModalBack" type="button" hidden>← к выбору</button>
       <p class="gift-modal__brand" id="giftModalBrand"></p>
       <h3 id="giftModalName"></h3>
       <p class="gift-modal__subject" id="giftModalSubject"></p>
       <p class="gift-modal__note" id="giftModalNote"></p>
       <p class="gift-modal__article" id="giftModalArticle"></p>
+      <div class="gift-choices" id="giftModalChoices" hidden></div>
       <a class="btn btn--primary btn--small" id="giftModalLink" href="#" target="_blank" rel="noopener">Открыть на Wildberries</a>
+      <button class="btn btn--soft btn--small gift-modal__video" id="giftModalVideoBtn" type="button" hidden>как пришел подарочек</button>
     </div>
   </div>
 </div>
@@ -591,9 +613,9 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/media-data.js?v=vol1"></script>
-<script src="js/gifts-data.js?v=vol1"></script>
-<script src="js/data.js?v=vol1"></script>
-<script src="js/app.js?v=vol1"></script>
+<script src="js/media-data.js?v=wish1"></script>
+<script src="js/gifts-data.js?v=wish1"></script>
+<script src="js/data.js?v=wish1"></script>
+<script src="js/app.js?v=wish1"></script>
 </body>
 </html>

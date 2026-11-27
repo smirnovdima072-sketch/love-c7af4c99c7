@@ -444,6 +444,11 @@
     return giftState.group === "all" ? gifts : gifts.filter((g) => g.group === giftState.group);
   }
 
+  function updateWantBanner() {
+    const banner = $("#wantBanner");
+    if (banner) banner.hidden = giftState.group !== "want";
+  }
+
   function renderGifts() {
     const grid = $("#giftGrid");
     const more = $("#giftsMore");
@@ -464,13 +469,14 @@
         <span class="gift-card__body">
           <span class="gift-card__brand">${esc(g.brand || (g.deleted ? "остался в памяти" : "Wildberries"))}</span>
           <span class="gift-card__name">${esc(g.name || "Подарок с Wildberries")}</span>
-          <span class="gift-card__article">${g.nm ? `арт. ${esc(g.nm)}` : "товар удалён с Wildberries"}</span>
+          <span class="gift-card__article">${g.bundle ? `выбрать из ${g.choices.length}` : g.nm ? `арт. ${esc(g.nm)}` : "товар удалён с Wildberries"}</span>
         </span>
       </button>
     `).join("");
 
     if (more) more.hidden = list.length <= giftState.shown;
     if (count) count.textContent = `Показано ${Math.min(giftState.shown, list.length)} из ${list.length}`;
+    updateWantBanner();
     initReveals(grid);
   }
 
@@ -503,6 +509,24 @@
       openGift(giftState.filtered[Number(card.dataset.giftIndex)]);
     });
 
+    $("#giftModalChoices")?.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-choice-index]");
+      if (!btn || !currentBundle) return;
+      const choice = currentBundle.choices[Number(btn.dataset.choiceIndex)];
+      if (choice) renderGiftDetail(choice);
+    });
+
+    $("#giftModalBack")?.addEventListener("click", () => {
+      if (currentBundle) renderBundleChoices(currentBundle);
+    });
+
+    $("#giftModalVideoBtn")?.addEventListener("click", () => {
+      openLightbox([
+        { type: "video", src: "assets/videos/v15.mp4", caption: "Как пришел подарочек — розы, которые я делал" },
+        { type: "video", src: "assets/videos/v16.mp4", caption: "Как пришел подарочек — момент из подарка" }
+      ], 0);
+    });
+
     $$("[data-gift-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
         setGiftFilter(btn.dataset.giftJump);
@@ -511,21 +535,33 @@
     });
   }
 
-  function openGift(g) {
-    if (!g) return;
-    const modal = $("#giftModal");
-    if (!modal) return;
+  let currentGift = null;
+  let currentBundle = null;
+
+  function setGiftMedia(src, name, emoji) {
     const mediaEl = $("#giftModalMedia");
-    if (mediaEl) {
-      mediaEl.innerHTML = g.img
-        ? `<img src="${esc(g.img)}" alt="${esc(g.name)}">`
-        : `<span class="gift-modal__emoji" aria-hidden="true">${esc(g.emoji || "🎁")}</span>`;
-    }
+    if (!mediaEl) return;
+    mediaEl.innerHTML = src
+      ? `<img src="${esc(src)}" alt="${esc(name)}">`
+      : `<span class="gift-modal__emoji" aria-hidden="true">${esc(emoji || "🎁")}</span>`;
+  }
+
+  function renderGiftDetail(g) {
+    if (!g) return;
+    setGiftMedia(g.img, g.name, g.emoji || (currentBundle && currentBundle.emoji));
     $("#giftModalBrand").textContent = g.brand || (g.deleted ? "Подарок, который остался" : "Wildberries");
     $("#giftModalName").textContent = g.name || "Подарок";
     $("#giftModalSubject").textContent = g.subject || (g.deleted ? "Товар удалён с Wildberries" : "");
     $("#giftModalNote").textContent = g.note || "";
-    $("#giftModalArticle").textContent = g.nm ? `Артикул Wildberries: ${g.nm}` : "Этого товара больше нет на Wildberries";
+    $("#giftModalArticle").textContent = g.nm ? `Артикул Wildberries: ${g.nm}` : "";
+
+    const choices = $("#giftModalChoices");
+    if (choices) choices.hidden = true;
+    const back = $("#giftModalBack");
+    if (back) {
+      back.hidden = !currentBundle;
+      back.textContent = "← к выбору";
+    }
     const link = $("#giftModalLink");
     if (link) {
       if (g.url) {
@@ -536,6 +572,50 @@
         link.hidden = true;
       }
     }
+    const videoBtn = $("#giftModalVideoBtn");
+    if (videoBtn) videoBtn.hidden = g.nm !== "519150168";
+  }
+
+  function renderBundleChoices(g) {
+    if (!g) return;
+    setGiftMedia("", g.name, g.emoji || "🎁");
+    $("#giftModalBrand").textContent = g.brand || "выбор для тебя";
+    $("#giftModalName").textContent = g.name || "Выбери подарок";
+    $("#giftModalSubject").textContent = `${g.choices.length} вариантов. Нажми на тот, который хочется тебе.`;
+    $("#giftModalNote").textContent = g.note || "";
+    $("#giftModalArticle").textContent = "";
+
+    const holder = $("#giftModalChoices");
+    if (holder) {
+      holder.innerHTML = g.choices.map((c, i) => `
+        <button class="gift-choice" type="button" data-choice-index="${i}">
+          ${c.img ? `<img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy">` : `<span aria-hidden="true">🎁</span>`}
+          <span class="gift-choice__text">
+            <b>${esc(c.name)}</b>
+            <small>арт. ${esc(c.nm)}</small>
+          </span>
+        </button>`).join("");
+      holder.hidden = false;
+    }
+    const back = $("#giftModalBack");
+    if (back) back.hidden = true;
+    const link = $("#giftModalLink");
+    if (link) {
+      link.removeAttribute("href");
+      link.hidden = true;
+    }
+    const videoBtn = $("#giftModalVideoBtn");
+    if (videoBtn) videoBtn.hidden = true;
+  }
+
+  function openGift(g) {
+    if (!g) return;
+    const modal = $("#giftModal");
+    if (!modal) return;
+    currentGift = g;
+    currentBundle = g.bundle && g.choices && g.choices.length ? g : null;
+    if (currentBundle) renderBundleChoices(g);
+    else renderGiftDetail(g);
     openModal(modal);
   }
 

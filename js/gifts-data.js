@@ -1,6 +1,12 @@
 window.GIFT_DATA = {
     "groups":  [
                    {
+                       "id":  "want",
+                       "title":  "Что ты хочешь",
+                       "emoji":  "💌",
+                       "subtitle":  "Выбирай то, что откликнется. Я всё равно добавлю что-то от себя"
+                   },
+                   {
                        "id":  "bday2a",
                        "title":  "Твой второй день рождения",
                        "emoji":  "🎂",
@@ -531,6 +537,332 @@ window.GIFT_DATA = {
                       "note":  "Товар удалён с Wildberries — собранный осьминог остался",
                       "deleted":  true,
                       "emoji":  "🐙"
+                  },
+                  {
+                      "nm":  "1308387343",
+                      "group":  "want",
+                      "name":  "Конструктор букет черных роз",
+                      "brand":  "LEGO",
+                      "subject":  "Конструкторы LEGO",
+                      "img":  "assets/gifts/1308387343.webp",
+                      "url":  "https://www.wildberries.ru/catalog/1308387343/detail.aspx",
+                      "note":  "Соберу я сам и красиво отдам. От себя — обязательно."
+                  },
+                  {
+                      "nm":  "",
+                      "group":  "want",
+                      "name":  "12 вариантов — выбери свой",
+                      "brand":  "выбор для тебя",
+                      "subject":  "Выбери один из 12 подарков",
+                      "img":  "",
+                      "url":  "",
+                      "note":  "Нажми, чтобы выбрать. Я куплю то, что тебе понравится, и добавлю от себя.",
+                      "bundle":  true,
+                      "choices":  [
+                                      {
+                                          "nm":  "985036131",
+                                          "name":  "Жевательный мармелад DAMLA 1 кг Вишня, кислые ремешки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/985036131.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/985036131/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "219734748",
+                                          "name":  "Мармелад Jelly Co Крокодил 1 кг",
+                                          "brand":  "MINICCO",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/219734748.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/219734748/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1283603918",
+                                          "name":  "Жевательный мармелад Jolly Molly клубника 300гр ремешки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1283603918.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1283603918/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1100783720",
+                                          "name":  "Жевательный мармелад Love me ассорти 1 кг трубочки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1100783720.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1100783720/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "254470609",
+                                          "name":  "Жевательный мармелад DAMLA червячки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/254470609.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/254470609/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1283565994",
+                                          "name":  "Жевательный мармелад Jolly Molly ассорти300гр трубочки кисл.",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1283565994.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1283565994/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1283671660",
+                                          "name":  "Жевательный мармелад Jolly Molly малина 300гр ремешки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1283671660.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1283671660/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1101040324",
+                                          "name":  "Жевательный мармелад Love me радуга вкусов 1 кг трубочки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1101040324.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1101040324/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1283710029",
+                                          "name":  "Жевательный мармелад Jolly Molly радуга вкусов 300гр ремешки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1283710029.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1283710029/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1283420768",
+                                          "name":  "Жевательный мармелад Jolly Molly ассорти 300гр трубочки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1283420768.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1283420768/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "984929774",
+                                          "name":  "Жевательный мармелад DAMLA 1 кг Виноград, кислые ремешки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/984929774.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/984929774/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1283630391",
+                                          "name":  "Жевательный мармелад Jolly Molly кола 300гр ремешки",
+                                          "brand":  "Tayas",
+                                          "subject":  "Мармелад",
+                                          "img":  "assets/gifts/1283630391.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1283630391/detail.aspx"
+                                      }
+                                  ],
+                      "emoji":  "💐"
+                  },
+                  {
+                      "nm":  "267003498",
+                      "group":  "want",
+                      "name":  "Набор пучковых накладных ресниц с клеем изгиб D, 30D/40D",
+                      "brand":  "EnvyLash",
+                      "subject":  "Накладные ресницы",
+                      "img":  "assets/gifts/267003498.webp",
+                      "url":  "https://www.wildberries.ru/catalog/267003498/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "",
+                      "group":  "want",
+                      "name":  "5 вариантов — выбери свой",
+                      "brand":  "выбор для тебя",
+                      "subject":  "Выбери один из 5 подарков",
+                      "img":  "",
+                      "url":  "",
+                      "note":  "Ты выбираешь, я радую. И кое-что от себя — само собой.",
+                      "bundle":  true,
+                      "choices":  [
+                                      {
+                                          "nm":  "1230267670",
+                                          "name":  "Брелок пушистый Злой кролик Аниме",
+                                          "brand":  "AniAmi",
+                                          "subject":  "Брелоки",
+                                          "img":  "assets/gifts/1230267670.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1230267670/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1230267672",
+                                          "name":  "Брелок пушистый Злой кролик Аниме",
+                                          "brand":  "AniAmi",
+                                          "subject":  "Брелоки",
+                                          "img":  "assets/gifts/1230267672.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1230267672/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1230267669",
+                                          "name":  "Брелок пушистый Злой кролик Аниме",
+                                          "brand":  "AniAmi",
+                                          "subject":  "Брелоки",
+                                          "img":  "assets/gifts/1230267669.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1230267669/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1230208004",
+                                          "name":  "Брелок мягкий Медвежонок Аниме",
+                                          "brand":  "AniAmi",
+                                          "subject":  "Брелоки",
+                                          "img":  "assets/gifts/1230208004.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1230208004/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1230235303",
+                                          "name":  "Брелок мягкий Собачка для удачи с клевером Аниме",
+                                          "brand":  "AniAmi",
+                                          "subject":  "Брелоки",
+                                          "img":  "assets/gifts/1230235303.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1230235303/detail.aspx"
+                                      }
+                                  ],
+                      "emoji":  "🎀"
+                  },
+                  {
+                      "nm":  "971470998",
+                      "group":  "want",
+                      "name":  "Шоколадные батончики BABY FOX с молочной начинкой 30 шт",
+                      "brand":  "KDV",
+                      "subject":  "Батончики шоколадные",
+                      "img":  "assets/gifts/971470998.webp",
+                      "url":  "https://www.wildberries.ru/catalog/971470998/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "1344660149",
+                      "group":  "want",
+                      "name":  "Светильник ночник майнкрафт пчела",
+                      "brand":  "SDT Shop",
+                      "subject":  "Ночники",
+                      "img":  "assets/gifts/1344660149.webp",
+                      "url":  "https://www.wildberries.ru/catalog/1344660149/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "915166167",
+                      "group":  "want",
+                      "name":  "Мягкая игрушка бегущий Стич",
+                      "brand":  "",
+                      "subject":  "Игрушки интерактивные",
+                      "img":  "assets/gifts/915166167.webp",
+                      "url":  "https://www.wildberries.ru/catalog/915166167/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "",
+                      "group":  "want",
+                      "name":  "6 вариантов — выбери свой",
+                      "brand":  "выбор для тебя",
+                      "subject":  "Выбери один из 6 подарков",
+                      "img":  "",
+                      "url":  "",
+                      "note":  "Что бы ни выбрала — придумаю, как преподнести красиво.",
+                      "bundle":  true,
+                      "choices":  [
+                                      {
+                                          "nm":  "1328491693",
+                                          "name":  "Напиток Fanta 12 штук по 330 мл Фанта Ж/Б",
+                                          "brand":  "Coca-Cola",
+                                          "subject":  "Напитки газированные",
+                                          "img":  "assets/gifts/1328491693.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1328491693/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1123239786",
+                                          "name":  "Напиток Coca-Cola zero 24шт по 0,5л Кока-кола",
+                                          "brand":  "Coca-Cola",
+                                          "subject":  "Напитки газированные",
+                                          "img":  "assets/gifts/1123239786.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1123239786/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1152482402",
+                                          "name":  "Напиток Schweppes 12 штук по 330 мл Швепс Ж/Б",
+                                          "brand":  "Coca-Cola",
+                                          "subject":  "Напитки газированные",
+                                          "img":  "assets/gifts/1152482402.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1152482402/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1152417929",
+                                          "name":  "Напиток Fanta апельсин 12 штук по 330 мл Фанта Ж/Б",
+                                          "brand":  "Coca-Cola",
+                                          "subject":  "Напитки газированные",
+                                          "img":  "assets/gifts/1152417929.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1152417929/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "1152446064",
+                                          "name":  "Напиток Sprite 12 штук по 330 мл Спрайт Ж/Б",
+                                          "brand":  "Coca-Cola",
+                                          "subject":  "Напитки газированные",
+                                          "img":  "assets/gifts/1152446064.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/1152446064/detail.aspx"
+                                      },
+                                      {
+                                          "nm":  "2006737593",
+                                          "name":  "Mountain Dew 12 шт. в банках 0,33 л Маунтин Дью классический",
+                                          "brand":  "MOUNTAIN DEW",
+                                          "subject":  "Напитки газированные",
+                                          "img":  "assets/gifts/2006737593.webp",
+                                          "url":  "https://www.wildberries.ru/catalog/2006737593/detail.aspx"
+                                      }
+                                  ],
+                      "emoji":  "✨"
+                  },
+                  {
+                      "nm":  "1308055971",
+                      "group":  "want",
+                      "name":  "Наклейки на браслет Nomination Ангел",
+                      "brand":  "Стикерстрянка",
+                      "subject":  "Наклейки для техники",
+                      "img":  "assets/gifts/1308055971.webp",
+                      "url":  "https://www.wildberries.ru/catalog/1308055971/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "757407230",
+                      "group":  "want",
+                      "name":  "Ремень кожаный Versace",
+                      "brand":  "Versace belt",
+                      "subject":  "Ремни",
+                      "img":  "assets/gifts/757407230.webp",
+                      "url":  "https://www.wildberries.ru/catalog/757407230/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "1483429192",
+                      "group":  "want",
+                      "name":  "Аудио открытка кассета",
+                      "brand":  "MARLOW SHOP",
+                      "subject":  "Открытки",
+                      "img":  "assets/gifts/1483429192.webp",
+                      "url":  "https://www.wildberries.ru/catalog/1483429192/detail.aspx",
+                      "note":  "Запишу что-то милое и подарю."
+                  },
+                  {
+                      "nm":  "1586770170",
+                      "group":  "want",
+                      "name":  "Антистресс брелок светящийся звуковой квакающая лягушка",
+                      "brand":  "CapyTrinket",
+                      "subject":  "Брелоки",
+                      "img":  "assets/gifts/1586770170.webp",
+                      "url":  "https://www.wildberries.ru/catalog/1586770170/detail.aspx",
+                      "note":  ""
+                  },
+                  {
+                      "nm":  "2174801513",
+                      "group":  "want",
+                      "name":  "светильник minecraft фонарь ночник майнкрафт Лампа",
+                      "brand":  "",
+                      "subject":  "Ночники",
+                      "img":  "assets/gifts/2174801513.webp",
+                      "url":  "https://www.wildberries.ru/catalog/2174801513/detail.aspx",
+                      "note":  ""
                   }
               ]
 };

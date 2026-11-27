@@ -199,6 +199,7 @@ window.CONTENT = {
   ],
 
   giftGroupShort: {
+    want: "Что ты хочешь",
     bday2a: "2-й день рождения",
     bday2b: "Подарки без повода",
     bday2c: "Маленькие сюрпризы",
