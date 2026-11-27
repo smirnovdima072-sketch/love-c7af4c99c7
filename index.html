@@ -8,7 +8,7 @@
   <meta name="description" content="Письмо, наша история и приглашение на свидание — только для тебя.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/style.css?v=wish1">
+  <link rel="stylesheet" href="css/style.css?v=cart1">
 </head>
 <body>
 
@@ -291,12 +291,16 @@
             <h3>Что ты хочешь</h3>
             <p>Выбирай то, что откликнется. Остальное я придумаю сам и добавлю от себя.</p>
           </div>
-          <div class="want-banner__budget"><span>бюджет</span><strong>3000 ₽</strong></div>
+          <div class="want-banner__side">
+            <div class="want-banner__budget"><span id="wantBudgetLabel">осталось</span><strong id="wantBudgetLeft">3000 ₽</strong><small id="wantBudgetSpent">из 3000 ₽</small></div>
+            <button class="want-cart" id="wantCartBtn" type="button">🧺 Корзина <b id="wantCartCount">0</b></button>
+          </div>
         </div>
         <div class="want-banner__meta">
           <span>📅 не раньше 10 декабря — чтобы я успел купить, проверить и красиво отдать</span>
           <span class="want-banner__flare">а если чуть больше — ничего страшно, мне для тебя ничего не жалко ♥</span>
         </div>
+        <div class="want-banner__progress" aria-hidden="true"><span id="wantBudgetBar"></span></div>
       </div>
 
       <div class="gift-grid" id="giftGrid"></div>
@@ -586,11 +590,41 @@
       <p class="gift-modal__brand" id="giftModalBrand"></p>
       <h3 id="giftModalName"></h3>
       <p class="gift-modal__subject" id="giftModalSubject"></p>
+      <p class="gift-modal__desc" id="giftModalDesc" hidden></p>
       <p class="gift-modal__note" id="giftModalNote"></p>
       <p class="gift-modal__article" id="giftModalArticle"></p>
-      <div class="gift-choices" id="giftModalChoices" hidden></div>
+      <p class="gift-modal__price" id="giftModalPrice" hidden></p>
+      <div class="gift-carousel" id="giftCarousel" hidden>
+        <div class="gift-carousel__bar">
+          <span id="giftChoiceCounter">1 из 12</span>
+          <div class="gift-carousel__dots" id="giftChoiceDots"></div>
+        </div>
+      </div>
+      <button class="btn btn--soft btn--small gift-modal__cart" id="giftModalCartBtn" type="button" hidden>в корзину</button>
       <a class="btn btn--primary btn--small" id="giftModalLink" href="#" target="_blank" rel="noopener">Открыть на Wildberries</a>
       <button class="btn btn--soft btn--small gift-modal__video" id="giftModalVideoBtn" type="button" hidden>как пришел подарочек</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────── CART MODAL ─────────────── -->
+<div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Корзина желаний">
+  <div class="modal__backdrop" data-close-cart></div>
+  <div class="modal__card cart-modal">
+    <button class="modal__close" type="button" data-close-cart aria-label="Закрыть">×</button>
+    <div class="cart-modal__head">
+      <div>
+        <p class="eyebrow">твой выбор</p>
+        <h3>Корзина желаний</h3>
+      </div>
+      <button class="text-link" id="cartClear" type="button">очистить</button>
+    </div>
+    <div class="cart-modal__items" id="cartItems"></div>
+    <div class="cart-modal__foot">
+      <p class="cart-modal__total" id="cartTotal">Пока пусто ♥</p>
+      <p class="cart-modal__left" id="cartLeft"></p>
+      <a class="btn btn--primary" id="cartTelegram" href="#" target="_blank" rel="noopener" hidden>Отправить мне в Telegram ♥</a>
+      <p class="cart-modal__hint">Нажми — и откроется чат с готовым сообщением. Просто отправь его.</p>
     </div>
   </div>
 </div>
@@ -613,9 +647,9 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/media-data.js?v=wish1"></script>
-<script src="js/gifts-data.js?v=wish1"></script>
-<script src="js/data.js?v=wish1"></script>
-<script src="js/app.js?v=wish1"></script>
+<script src="js/media-data.js?v=cart1"></script>
+<script src="js/gifts-data.js?v=cart1"></script>
+<script src="js/data.js?v=cart1"></script>
+<script src="js/app.js?v=cart1"></script>
 </body>
 </html>

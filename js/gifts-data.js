@@ -367,7 +367,7 @@ window.GIFT_DATA = {
                   {
                       "nm":  "519150168",
                       "group":  "bday1",
-                      "name":  "пандора набор подарочный красное сердце",
+                      "name":  "Пандора набор подарочный красное сердце",
                       "brand":  "Pandora",
                       "subject":  "Кольца",
                       "img":  "assets/gifts/519150168.webp",
@@ -437,7 +437,7 @@ window.GIFT_DATA = {
                   {
                       "nm":  "670272338",
                       "group":  "bday2b",
-                      "name":  "кулон сердце и меч парные",
+                      "name":  "Кулон сердце и меч парные",
                       "brand":  null,
                       "subject":  "Колье",
                       "img":  "assets/gifts/670272338.webp",
@@ -546,7 +546,9 @@ window.GIFT_DATA = {
                       "subject":  "Конструкторы LEGO",
                       "img":  "assets/gifts/1308387343.webp",
                       "url":  "https://www.wildberries.ru/catalog/1308387343/detail.aspx",
-                      "note":  "Соберу я сам и красиво отдам. От себя — обязательно."
+                      "note":  "Соберу я сам и красиво отдам. От себя — обязательно.",
+                      "price":  3290,
+                      "desc":  "Цветочный блочный конструктор позволяет собрать необычный букет из 12 черных роз. Набор состоит из 512 деталей. В композиции представлены бутоны, полураскрывшиеся и распустившиеся цветы, поэ…"
                   },
                   {
                       "nm":  "",
@@ -565,7 +567,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/985036131.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/985036131/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/985036131/detail.aspx",
+                                          "price":  890,
+                                          "desc":  "Представляем вам жевательный мармелад DAMLA – настоящий взрыв вкуса для всех любителей сладостей! В этой упаковке вас ждет целых 100 кислых ремешков со вкусом сочной вишни, которые точно под…"
                                       },
                                       {
                                           "nm":  "219734748",
@@ -573,7 +577,9 @@ window.GIFT_DATA = {
                                           "brand":  "MINICCO",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/219734748.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/219734748/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/219734748/detail.aspx",
+                                          "price":  850,
+                                          "desc":  "Представляем вам невероятно вкусный и забавный мармелад Jelly Co Крокодил от MINICCO! Эти милые крокодильчики из жевательного мармелада станут настоящим хитом на любом празднике. Представьте…"
                                       },
                                       {
                                           "nm":  "1283603918",
@@ -581,7 +587,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1283603918.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1283603918/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1283603918/detail.aspx",
+                                          "price":  390,
+                                          "desc":  "Представляем вам жевательный мармелад Jolly Molly клубника 300гр ремешки – это настоящий праздник вкуса для всех сладкоежек! Представьте: яркие, аппетитные ремешки из сочного мармелада с нас…"
                                       },
                                       {
                                           "nm":  "1100783720",
@@ -589,7 +597,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1100783720.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1100783720/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1100783720/detail.aspx",
+                                          "price":  890,
+                                          "desc":  "Представляем вам жевательный мармелад Love me ассорти - настоящий праздник вкуса в каждом кусочке! В этом огромном контейнере весом 1 кг вас ждут яркие трубочки с любимыми вкусами: кола, клу…"
                                       },
                                       {
                                           "nm":  "254470609",
@@ -597,7 +607,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/254470609.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/254470609/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/254470609/detail.aspx",
+                                          "price":  790,
+                                          "desc":  "Damla - это жевательный мармелад от турецкой компании Tayas, который представляет собой идеальное сочетание кисло сладкого вкуса и качества. Он доступен в различных формах, таких как ремешки…"
                                       },
                                       {
                                           "nm":  "1283565994",
@@ -605,7 +617,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1283565994.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1283565994/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1283565994/detail.aspx",
+                                          "price":  390,
+                                          "desc":  "Представляем вам невероятно вкусный и яркий жевательный мармелад Jolly Molly ассорти! В этом огромном контейнере весом целых 300гр вас ждут кислые трубочки, которые точно поднимут настроение…"
                                       },
                                       {
                                           "nm":  "1283671660",
@@ -613,7 +627,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1283671660.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1283671660/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1283671660/detail.aspx",
+                                          "price":  390,
+                                          "desc":  "Представляем вам жевательный мармелад Jolly Molly - идеальное лакомство для любителей ярких вкусов! В каждом пакетике вас ждет сочная смесь ежевики и малины, создающая неповторимый кисло-сла…"
                                       },
                                       {
                                           "nm":  "1101040324",
@@ -621,7 +637,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1101040324.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1101040324/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1101040324/detail.aspx",
+                                          "price":  890,
+                                          "desc":  "Представляем вам жевательный мармелад Love me \"Радуга вкусов\" - настоящий праздник для сладкоежек! В этом огромном контейнере весом 1 кг вас ждут яркие трубочки с кислыми вкусами: кола, клуб…"
                                       },
                                       {
                                           "nm":  "1283710029",
@@ -629,7 +647,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1283710029.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1283710029/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1283710029/detail.aspx",
+                                          "price":  390,
+                                          "desc":  "Представляем вам жевательный мармелад Jolly Molly \"Радуга вкусов\" – это настоящий праздник для любителей кисленького! В каждом пакетике 300 грамм ярких ремешков с насыщенным вкусом тутти-фру…"
                                       },
                                       {
                                           "nm":  "1283420768",
@@ -637,7 +657,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1283420768.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1283420768/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1283420768/detail.aspx",
+                                          "price":  390,
+                                          "desc":  "Представляем вам жевательный мармелад Jolly Molly ассорти 300гр трубочки – настоящий праздник вкуса для всей семьи! В этом ярком контейнере вас ждут трубочки, карандаши и цветные трубочки с…"
                                       },
                                       {
                                           "nm":  "984929774",
@@ -645,7 +667,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/984929774.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/984929774/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/984929774/detail.aspx",
+                                          "price":  890,
+                                          "desc":  "Представляем вам жевательный мармелад DAMLA – настоящий взрыв вкуса для всех любителей сладостей! В этой упаковке вас ждет целых 100 кислых ремешков со вкусом сочной винограда, которые точно…"
                                       },
                                       {
                                           "nm":  "1283630391",
@@ -653,7 +677,9 @@ window.GIFT_DATA = {
                                           "brand":  "Tayas",
                                           "subject":  "Мармелад",
                                           "img":  "assets/gifts/1283630391.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1283630391/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1283630391/detail.aspx",
+                                          "price":  390,
+                                          "desc":  "Представляем вам жевательный мармелад Jolly Molly кола 300гр ремешки – настоящий взрыв вкуса и веселья! Эти кислые ремешки с насыщенным вкусом колы станут отличным лакомством для детей и взр…"
                                       }
                                   ],
                       "emoji":  "💐"
@@ -666,7 +692,9 @@ window.GIFT_DATA = {
                       "subject":  "Накладные ресницы",
                       "img":  "assets/gifts/267003498.webp",
                       "url":  "https://www.wildberries.ru/catalog/267003498/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  390,
+                      "desc":  "Создайте обворожительный образ с пучковыми накладными влагостойкими ресницами бренда «EnvyLash». Наш микс набор для наращивания ресниц в домашних условиях с клеем - это идеальное решение для…"
                   },
                   {
                       "nm":  "",
@@ -685,7 +713,9 @@ window.GIFT_DATA = {
                                           "brand":  "AniAmi",
                                           "subject":  "Брелоки",
                                           "img":  "assets/gifts/1230267670.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1230267670/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1230267670/detail.aspx",
+                                          "price":  450,
+                                          "desc":  "Плюшевый брелок в виде злого кролика — аксессуар для тех, кто любит необычный стиль и детали с характером. Модель выполнена из мягкого короткого плюша, приятного на ощупь. Высокие уши, контр…"
                                       },
                                       {
                                           "nm":  "1230267672",
@@ -693,7 +723,9 @@ window.GIFT_DATA = {
                                           "brand":  "AniAmi",
                                           "subject":  "Брелоки",
                                           "img":  "assets/gifts/1230267672.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1230267672/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1230267672/detail.aspx",
+                                          "price":  450,
+                                          "desc":  "Плюшевый брелок в виде злого кролика — необычный аксессуар для сумки, рюкзака, ключей или пенала. Модель выполнена из мягкого короткого плюша и дополнена выразительными деталями: длинными уш…"
                                       },
                                       {
                                           "nm":  "1230267669",
@@ -701,7 +733,9 @@ window.GIFT_DATA = {
                                           "brand":  "AniAmi",
                                           "subject":  "Брелоки",
                                           "img":  "assets/gifts/1230267669.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1230267669/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1230267669/detail.aspx",
+                                          "price":  450,
+                                          "desc":  "Плюшевый брелок злой зайка — необычный аксессуар для сумки, рюкзака, ключей или пенала. Модель выполнена из мягкого короткого меха, приятного на ощупь. Контрастные уши, вышитая мордочка, кра…"
                                       },
                                       {
                                           "nm":  "1230208004",
@@ -709,7 +743,9 @@ window.GIFT_DATA = {
                                           "brand":  "AniAmi",
                                           "subject":  "Брелоки",
                                           "img":  "assets/gifts/1230208004.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1230208004/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1230208004/detail.aspx",
+                                          "price":  420,
+                                          "desc":  "Голубой плюшевый брелок в виде мишки — яркий аксессуар для сумки, рюкзака, ключей или пенала. Модель выполнена из мягкого пушистого материала и украшена вышивкой: контрастное ушко, декоратив…"
                                       },
                                       {
                                           "nm":  "1230235303",
@@ -717,7 +753,9 @@ window.GIFT_DATA = {
                                           "brand":  "AniAmi",
                                           "subject":  "Брелоки",
                                           "img":  "assets/gifts/1230235303.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1230235303/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1230235303/detail.aspx",
+                                          "price":  480,
+                                          "desc":  "Плюшевый брелок в виде белой собачки с зелёным клевером — милый аксессуар для сумки, рюкзака, ключей или пенала. Игрушка выполнена из мягкого короткого меха, приятного на ощупь. Большие выши…"
                                       }
                                   ],
                       "emoji":  "🎀"
@@ -730,17 +768,21 @@ window.GIFT_DATA = {
                       "subject":  "Батончики шоколадные",
                       "img":  "assets/gifts/971470998.webp",
                       "url":  "https://www.wildberries.ru/catalog/971470998/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  990,
+                      "desc":  "Шоколадные батончики BABY FOX с молочной начинкой, 30 шт по 45 гр (бокс) от кондитерской фабрики КДВ. Молочный шоколад BabyFox - натуральное лакомство для маленьких исследователей! Подарите…"
                   },
                   {
                       "nm":  "1344660149",
                       "group":  "want",
-                      "name":  "Светильник ночник майнкрафт пчела",
+                      "name":  "Светильник ночник Minecraft пчела",
                       "brand":  "SDT Shop",
                       "subject":  "Ночники",
                       "img":  "assets/gifts/1344660149.webp",
                       "url":  "https://www.wildberries.ru/catalog/1344660149/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  1200,
+                      "desc":  "Познакомьте вашего ребенка с волшебным миром Minecraft с нашим детским ночником светильником в форме пчелы Minecraft! Этот уникальный ночник для новорожденного станет идеальным дополнением к…"
                   },
                   {
                       "nm":  "915166167",
@@ -750,7 +792,9 @@ window.GIFT_DATA = {
                       "subject":  "Игрушки интерактивные",
                       "img":  "assets/gifts/915166167.webp",
                       "url":  "https://www.wildberries.ru/catalog/915166167/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  890,
+                      "desc":  "Мягкая игрушка Бегущий Стич – это уникальный интерактивный компаньон для вашего ребенка. Особенностью этой игрушки: если потрясти Стича за голову вверх и вниз, он начнет забавно перебирать н…"
                   },
                   {
                       "nm":  "",
@@ -769,7 +813,9 @@ window.GIFT_DATA = {
                                           "brand":  "Coca-Cola",
                                           "subject":  "Напитки газированные",
                                           "img":  "assets/gifts/1328491693.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1328491693/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1328491693/detail.aspx",
+                                          "price":  850,
+                                          "desc":  "Fanta Виноград изготавливается на официальном заводском комплексе в Минске (Беларусь), где действует жёсткая система контроля качества. Этот сильно газированный освежающий напиток с насыщенн…"
                                       },
                                       {
                                           "nm":  "1123239786",
@@ -777,7 +823,9 @@ window.GIFT_DATA = {
                                           "brand":  "Coca-Cola",
                                           "subject":  "Напитки газированные",
                                           "img":  "assets/gifts/1123239786.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1123239786/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1123239786/detail.aspx",
+                                          "price":  1500,
+                                          "desc":  "Coca-Cola Zero изготавливается на официальном заводском комплексе в Минске (Беларусь), где действует жёсткая система контроля качества. Этот сильно газированный освежающий напиток с любимым…"
                                       },
                                       {
                                           "nm":  "1152482402",
@@ -785,7 +833,9 @@ window.GIFT_DATA = {
                                           "brand":  "Coca-Cola",
                                           "subject":  "Напитки газированные",
                                           "img":  "assets/gifts/1152482402.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1152482402/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1152482402/detail.aspx",
+                                          "price":  900,
+                                          "desc":  "Schweppes Indian Tonic изготавливается на официальном заводском комплексе в Минске (Беларусь), где действует жёсткая система контроля качества. Этот сильно газированный освежающий напиток с…"
                                       },
                                       {
                                           "nm":  "1152417929",
@@ -793,7 +843,9 @@ window.GIFT_DATA = {
                                           "brand":  "Coca-Cola",
                                           "subject":  "Напитки газированные",
                                           "img":  "assets/gifts/1152417929.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1152417929/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1152417929/detail.aspx",
+                                          "price":  850,
+                                          "desc":  "Fanta апельсин изготавливается на официальном заводском комплексе в Минске (Беларусь), где действует жёсткая система контроля качества. Этот сильно газированный освежающий напиток с ярким ци…"
                                       },
                                       {
                                           "nm":  "1152446064",
@@ -801,7 +853,9 @@ window.GIFT_DATA = {
                                           "brand":  "Coca-Cola",
                                           "subject":  "Напитки газированные",
                                           "img":  "assets/gifts/1152446064.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/1152446064/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/1152446064/detail.aspx",
+                                          "price":  850,
+                                          "desc":  "Sprite изготавливается на официальном заводском комплексе в Минске (Беларусь), где действует жёсткая система контроля качества. Этот сильно газированный освежающий напиток с прозрачным лимон…"
                                       },
                                       {
                                           "nm":  "2006737593",
@@ -809,7 +863,9 @@ window.GIFT_DATA = {
                                           "brand":  "MOUNTAIN DEW",
                                           "subject":  "Напитки газированные",
                                           "img":  "assets/gifts/2006737593.webp",
-                                          "url":  "https://www.wildberries.ru/catalog/2006737593/detail.aspx"
+                                          "url":  "https://www.wildberries.ru/catalog/2006737593/detail.aspx",
+                                          "price":  1100,
+                                          "desc":  "Mountain Dew (Маунтин Дью, Мтн Дью) 330мл x 12 банок — безалкогольный газированный напиток с ярким цитрусовым вкусом и освежающим ароматом лимона и лайма. Оригинальная газировка сочетает при…"
                                       }
                                   ],
                       "emoji":  "✨"
@@ -822,7 +878,9 @@ window.GIFT_DATA = {
                       "subject":  "Наклейки для техники",
                       "img":  "assets/gifts/1308055971.webp",
                       "url":  "https://www.wildberries.ru/catalog/1308055971/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  350,
+                      "desc":  "Мини наклейки на браслет nomination с Ангельской эстетикой. Набор из 72 стикеров белый y2k – идеальный способ украсить ваш аксессуар, шармы подходят для звеньев номинейшен 9 на 5 мм. Маленьк…"
                   },
                   {
                       "nm":  "757407230",
@@ -832,7 +890,9 @@ window.GIFT_DATA = {
                       "subject":  "Ремни",
                       "img":  "assets/gifts/757407230.webp",
                       "url":  "https://www.wildberries.ru/catalog/757407230/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  2500,
+                      "desc":  "Элегантный и универсальный ремень от известного итальянского бренда Versace . Этот двухсторонний ремень изготовлен из высококачественной кожи, что обеспечивает его долговечность и комфорт пр…"
                   },
                   {
                       "nm":  "1483429192",
@@ -842,7 +902,9 @@ window.GIFT_DATA = {
                       "subject":  "Открытки",
                       "img":  "assets/gifts/1483429192.webp",
                       "url":  "https://www.wildberries.ru/catalog/1483429192/detail.aspx",
-                      "note":  "Запишу что-то милое и подарю."
+                      "note":  "Запишу что-то милое и подарю.",
+                      "price":  690,
+                      "desc":  "В преддверии сокровенного события, каждое слово имеет значение, представляем вам уникальную аудио открытку кассета — волшебный способ поздравить ваших близких с днем рождения или другим знач…"
                   },
                   {
                       "nm":  "1586770170",
@@ -852,17 +914,21 @@ window.GIFT_DATA = {
                       "subject":  "Брелоки",
                       "img":  "assets/gifts/1586770170.webp",
                       "url":  "https://www.wildberries.ru/catalog/1586770170/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  450,
+                      "desc":  "Игрушка антистресс брелок Лягушка квакающая Кликер — оригинальная игрушка для детей, подростков и взрослых, которая сочетает брелок для ключей, механический кликер и компактный антистресс дл…"
                   },
                   {
                       "nm":  "2174801513",
                       "group":  "want",
-                      "name":  "светильник minecraft фонарь ночник майнкрафт Лампа",
+                      "name":  "Светильник из Minecraft — фонарь-ночник",
                       "brand":  "",
                       "subject":  "Ночники",
                       "img":  "assets/gifts/2174801513.webp",
                       "url":  "https://www.wildberries.ru/catalog/2174801513/detail.aspx",
-                      "note":  ""
+                      "note":  "",
+                      "price":  1300,
+                      "desc":  "16 цветов RGB-подсветки Этот настенный светильник в стиле Minecraft имеет 16 мягких цветов подсветки. Легко переключайте оттенки, создавайте уютную игровую атмосферу, спокойное освещение в с…"
                   }
               ]
 };

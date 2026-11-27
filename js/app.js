@@ -415,6 +415,36 @@
 
   /* ---------------- gifts ---------------- */
   const giftState = { group: "all", shown: 12, filtered: [] };
+
+  /* ---------------- wishlist cart ---------------- */
+  const WANT_BUDGET = 3000;
+  const CART_STORAGE = "loveWishCart_v1";
+  const wantItemMap = new Map();
+  (giftsData.gifts || []).forEach((g) => {
+    if (g.group !== "want") return;
+    if (g.bundle && g.choices) {
+      g.choices.forEach((c) => {
+        if (c.nm) wantItemMap.set(c.nm, { ...c, bundleName: g.name });
+      });
+    } else if (g.nm) {
+      wantItemMap.set(g.nm, g);
+    }
+  });
+
+  function loadCart() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CART_STORAGE) || "[]");
+      return Array.isArray(saved) ? saved.filter((nm) => wantItemMap.has(String(nm))).map(String) : [];
+    } catch (_) { return []; }
+  }
+  let cart = loadCart();
+  const cartItems = () => cart.map((nm) => wantItemMap.get(nm)).filter(Boolean);
+  const cartTotal = () => cartItems().reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const inCart = (nm) => Boolean(nm) && cart.includes(String(nm));
+
+  function saveCart() {
+    try { localStorage.setItem(CART_STORAGE, JSON.stringify(cart)); } catch (_) { /* private mode */ }
+  }
   const giftGroups = giftsData.groups || [];
   const gifts = giftsData.gifts || [];
 
@@ -447,6 +477,20 @@
   function updateWantBanner() {
     const banner = $("#wantBanner");
     if (banner) banner.hidden = giftState.group !== "want";
+    const total = cartTotal();
+    const left = WANT_BUDGET - total;
+    const leftEl = $("#wantBudgetLeft");
+    if (leftEl) leftEl.textContent = `${left < 0 ? "+" : ""}${Math.abs(left).toLocaleString("ru-RU")} ₽`;
+    const labelEl = $("#wantBudgetLabel");
+    if (labelEl) labelEl.textContent = left < 0 ? "сверх бюджета" : "осталось";
+    const spentEl = $("#wantBudgetSpent");
+    if (spentEl) spentEl.textContent = total ? `из ${WANT_BUDGET.toLocaleString("ru-RU")} ₽ · выбрано ${total.toLocaleString("ru-RU")} ₽` : `из ${WANT_BUDGET.toLocaleString("ru-RU")} ₽`;
+    const box = leftEl?.closest(".want-banner__budget");
+    if (box) box.classList.toggle("is-over", left < 0);
+    const bar = $("#wantBudgetBar");
+    if (bar) bar.style.width = `${Math.min(100, (total / WANT_BUDGET) * 100)}%`;
+    const count = $("#wantCartCount");
+    if (count) count.textContent = String(cart.length);
   }
 
   function renderGifts() {
@@ -458,8 +502,11 @@
     giftState.filtered = list;
     const slice = list.slice(0, giftState.shown);
 
-    grid.innerHTML = slice.map((g, idx) => `
-      <button class="gift-card ${g.deleted ? "gift-card--deleted" : ""}" type="button" data-gift-index="${idx}" aria-label="${esc(g.name)}">
+    grid.innerHTML = slice.map((g, idx) => {
+      const isWant = g.group === "want";
+      const canCart = isWant && !g.bundle && Boolean(g.nm);
+      const selected = inCart(g.nm);
+      const inner = `
         <span class="gift-card__media">
           <span class="gift-card__badge">${g.deleted ? "товар удалён" : esc(shortGroup(g.group))}</span>
           ${g.img
@@ -470,9 +517,17 @@
           <span class="gift-card__brand">${esc(g.brand || (g.deleted ? "остался в памяти" : "Wildberries"))}</span>
           <span class="gift-card__name">${esc(g.name || "Подарок с Wildberries")}</span>
           <span class="gift-card__article">${g.bundle ? `выбрать из ${g.choices.length}` : g.nm ? `арт. ${esc(g.nm)}` : "товар удалён с Wildberries"}</span>
-        </span>
-      </button>
-    `).join("");
+          ${canCart && g.price ? `<span class="gift-card__price">${Number(g.price).toLocaleString("ru-RU")} ₽</span>` : ""}
+        </span>`;
+      if (isWant) {
+        return `
+          <article class="gift-card gift-card--want ${selected ? "is-in-cart" : ""}">
+            <button class="gift-card__main" type="button" data-gift-index="${idx}" aria-label="${esc(g.name)}">${inner}</button>
+            ${canCart ? `<button class="gift-card__cart ${selected ? "is-in-cart" : ""}" type="button" data-cart-toggle="${esc(g.nm)}" aria-label="${selected ? "Удалить из корзины" : "Добавить в корзину"}">${selected ? "✓ в корзине" : "+ в корзину"}</button>` : ""}
+          </article>`;
+      }
+      return `<button class="gift-card ${g.deleted ? "gift-card--deleted" : ""}" type="button" data-gift-index="${idx}" aria-label="${esc(g.name)}">${inner}</button>`;
+    }).join("");
 
     if (more) more.hidden = list.length <= giftState.shown;
     if (count) count.textContent = `Показано ${Math.min(giftState.shown, list.length)} из ${list.length}`;
@@ -504,20 +559,36 @@
     });
 
     $("#giftGrid")?.addEventListener("click", (e) => {
+      const cartBtn = e.target.closest("[data-cart-toggle]");
+      if (cartBtn) {
+        e.stopPropagation();
+        toggleCart(cartBtn.dataset.cartToggle);
+        return;
+      }
       const card = e.target.closest("[data-gift-index]");
       if (!card) return;
       openGift(giftState.filtered[Number(card.dataset.giftIndex)]);
     });
 
-    $("#giftModalChoices")?.addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-choice-index]");
-      if (!btn || !currentBundle) return;
-      const choice = currentBundle.choices[Number(btn.dataset.choiceIndex)];
-      if (choice) renderGiftDetail(choice);
+    $("#wantCartBtn")?.addEventListener("click", openCart);
+
+    $("#giftModalMedia")?.addEventListener("click", (e) => {
+      const nav = e.target.closest("[data-choice-move]");
+      if (nav) moveBundle(Number(nav.dataset.choiceMove));
+    });
+
+    $("#giftChoiceDots")?.addEventListener("click", (e) => {
+      const dot = e.target.closest("[data-choice-dot]");
+      if (dot) setBundleIndex(Number(dot.dataset.choiceDot));
     });
 
     $("#giftModalBack")?.addEventListener("click", () => {
-      if (currentBundle) renderBundleChoices(currentBundle);
+      if (currentBundle) renderBundle();
+    });
+
+    $("#giftModalCartBtn")?.addEventListener("click", () => {
+      const item = currentBundle ? currentBundle.choices[bundleState.index] : currentGift;
+      if (item && item.nm) toggleCart(item.nm);
     });
 
     $("#giftModalVideoBtn")?.addEventListener("click", () => {
@@ -537,35 +608,52 @@
 
   let currentGift = null;
   let currentBundle = null;
+  const bundleState = { index: 0 };
 
-  function setGiftMedia(src, name, emoji) {
+  function setGiftMedia(src, name, emoji, carousel) {
     const mediaEl = $("#giftModalMedia");
     if (!mediaEl) return;
-    mediaEl.innerHTML = src
+    mediaEl.classList.toggle("is-carousel", Boolean(carousel));
+    const nav = carousel ? `
+      <button class="gift-carousel__nav gift-carousel__nav--prev" type="button" data-choice-move="-1" aria-label="Предыдущий вариант">←</button>
+      <button class="gift-carousel__nav gift-carousel__nav--next" type="button" data-choice-move="1" aria-label="Следующий вариант">→</button>` : "";
+    mediaEl.innerHTML = (src
       ? `<img src="${esc(src)}" alt="${esc(name)}">`
-      : `<span class="gift-modal__emoji" aria-hidden="true">${esc(emoji || "🎁")}</span>`;
+      : `<span class="gift-modal__emoji" aria-hidden="true">${esc(emoji || "🎁")}</span>`) + nav;
   }
 
-  function renderGiftDetail(g) {
-    if (!g) return;
-    setGiftMedia(g.img, g.name, g.emoji || (currentBundle && currentBundle.emoji));
-    $("#giftModalBrand").textContent = g.brand || (g.deleted ? "Подарок, который остался" : "Wildberries");
-    $("#giftModalName").textContent = g.name || "Подарок";
-    $("#giftModalSubject").textContent = g.subject || (g.deleted ? "Товар удалён с Wildberries" : "");
-    $("#giftModalNote").textContent = g.note || "";
-    $("#giftModalArticle").textContent = g.nm ? `Артикул Wildberries: ${g.nm}` : "";
+  function syncCartButton(item) {
+    const btn = $("#giftModalCartBtn");
+    if (!btn) return;
+    const canCart = Boolean(item && item.nm && wantItemMap.has(String(item.nm)));
+    btn.hidden = !canCart;
+    if (!canCart) return;
+    const selected = inCart(item.nm);
+    btn.classList.toggle("is-in-cart", selected);
+    btn.textContent = selected ? "✓ убрать из корзины" : "в корзину";
+    btn.setAttribute("aria-pressed", String(selected));
+  }
 
-    const choices = $("#giftModalChoices");
-    if (choices) choices.hidden = true;
-    const back = $("#giftModalBack");
-    if (back) {
-      back.hidden = !currentBundle;
-      back.textContent = "← к выбору";
+  function fillGiftFields(item, noteOverride) {
+    $("#giftModalBrand").textContent = item.brand || "Wildberries";
+    $("#giftModalName").textContent = item.name || "Подарок";
+    $("#giftModalSubject").textContent = item.subject || "";
+    const desc = $("#giftModalDesc");
+    if (desc) {
+      desc.textContent = item.desc || "";
+      desc.hidden = !item.desc;
+    }
+    $("#giftModalNote").textContent = noteOverride != null ? noteOverride : (item.note || "");
+    $("#giftModalArticle").textContent = item.nm ? `Артикул Wildberries: ${item.nm}` : "";
+    const price = $("#giftModalPrice");
+    if (price) {
+      price.textContent = item.price ? `${Number(item.price).toLocaleString("ru-RU")} ₽` : "";
+      price.hidden = !item.price;
     }
     const link = $("#giftModalLink");
     if (link) {
-      if (g.url) {
-        link.href = g.url;
+      if (item.url) {
+        link.href = item.url;
         link.hidden = false;
       } else {
         link.removeAttribute("href");
@@ -573,39 +661,51 @@
       }
     }
     const videoBtn = $("#giftModalVideoBtn");
-    if (videoBtn) videoBtn.hidden = g.nm !== "519150168";
+    if (videoBtn) videoBtn.hidden = item.nm !== "519150168";
+    syncCartButton(item);
   }
 
-  function renderBundleChoices(g) {
+  function renderGiftDetail(g) {
     if (!g) return;
-    setGiftMedia("", g.name, g.emoji || "🎁");
-    $("#giftModalBrand").textContent = g.brand || "выбор для тебя";
-    $("#giftModalName").textContent = g.name || "Выбери подарок";
-    $("#giftModalSubject").textContent = `${g.choices.length} вариантов. Нажми на тот, который хочется тебе.`;
-    $("#giftModalNote").textContent = g.note || "";
-    $("#giftModalArticle").textContent = "";
+    setGiftMedia(g.img, g.name, g.emoji || "🎁");
+    $("#giftCarousel").hidden = true;
+    const back = $("#giftModalBack");
+    if (back) back.hidden = !currentBundle;
+    fillGiftFields(g);
+  }
 
-    const holder = $("#giftModalChoices");
-    if (holder) {
-      holder.innerHTML = g.choices.map((c, i) => `
-        <button class="gift-choice" type="button" data-choice-index="${i}">
-          ${c.img ? `<img src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy">` : `<span aria-hidden="true">🎁</span>`}
-          <span class="gift-choice__text">
-            <b>${esc(c.name)}</b>
-            <small>арт. ${esc(c.nm)}</small>
-          </span>
-        </button>`).join("");
-      holder.hidden = false;
+  function renderBundle() {
+    const g = currentBundle;
+    if (!g || !g.choices || !g.choices.length) return;
+    bundleState.index = Math.max(0, Math.min(bundleState.index, g.choices.length - 1));
+    const item = g.choices[bundleState.index];
+    setGiftMedia(item.img, item.name, g.emoji || "🎁", true);
+    fillGiftFields(item, g.note || "");
+    $("#giftModalSubject").textContent = `${item.brand ? item.brand + " · " : ""}вариант ${bundleState.index + 1} из ${g.choices.length} — листай стрелками ♥`;
+    const carousel = $("#giftCarousel");
+    if (carousel) {
+      carousel.hidden = false;
+      const counter = $("#giftChoiceCounter");
+      if (counter) counter.textContent = `${bundleState.index + 1} из ${g.choices.length}`;
+      const dots = $("#giftChoiceDots");
+      if (dots) dots.innerHTML = g.choices.map((c, i) => `
+        <button type="button" data-choice-dot="${i}" class="${i === bundleState.index ? "is-active" : ""}" aria-label="Вариант ${i + 1}" aria-pressed="${i === bundleState.index}"></button>`).join("");
     }
     const back = $("#giftModalBack");
     if (back) back.hidden = true;
-    const link = $("#giftModalLink");
-    if (link) {
-      link.removeAttribute("href");
-      link.hidden = true;
-    }
-    const videoBtn = $("#giftModalVideoBtn");
-    if (videoBtn) videoBtn.hidden = true;
+  }
+
+  function setBundleIndex(index) {
+    if (!currentBundle) return;
+    bundleState.index = index;
+    renderBundle();
+  }
+
+  function moveBundle(dir) {
+    if (!currentBundle || !currentBundle.choices.length) return;
+    const n = currentBundle.choices.length;
+    bundleState.index = (bundleState.index + dir + n) % n;
+    renderBundle();
   }
 
   function openGift(g) {
@@ -614,9 +714,93 @@
     if (!modal) return;
     currentGift = g;
     currentBundle = g.bundle && g.choices && g.choices.length ? g : null;
-    if (currentBundle) renderBundleChoices(g);
+    bundleState.index = 0;
+    if (currentBundle) renderBundle();
     else renderGiftDetail(g);
     openModal(modal);
+  }
+
+  /* ---------------- cart actions ---------------- */
+  function toggleCart(nm) {
+    nm = String(nm || "");
+    if (!wantItemMap.has(nm)) return;
+    const i = cart.indexOf(nm);
+    if (i >= 0) {
+      cart.splice(i, 1);
+      toast("Убрала из корзины");
+    } else {
+      cart.push(nm);
+      toast("Добавила в корзину ♥");
+    }
+    saveCart();
+    renderGifts();
+    const selected = inCart(nm);
+    const activeItem = currentBundle ? currentBundle.choices[bundleState.index] : currentGift;
+    if (activeItem && String(activeItem.nm) === nm) syncCartButton(activeItem);
+    if ($("#cartModal")?.classList.contains("is-open")) renderCart();
+  }
+
+  function renderCart() {
+    const holder = $("#cartItems");
+    if (!holder) return;
+    const items = cartItems();
+    holder.innerHTML = items.length ? items.map((item) => `
+      <div class="cart-item">
+        ${item.img ? `<img src="${esc(item.img)}" alt="">` : `<span aria-hidden="true">🎁</span>`}
+        <span class="cart-item__text">
+          <b>${esc(item.name)}</b>
+          <small>арт. ${esc(item.nm)}${item.bundleName ? ` · ${esc(item.bundleName)}` : ""}</small>
+          <em>${Number(item.price || 0).toLocaleString("ru-RU")} ₽</em>
+        </span>
+        <button class="cart-item__remove" type="button" data-cart-remove="${esc(item.nm)}" aria-label="Удалить из корзины">×</button>
+      </div>`).join("") : `<p class="cart-empty">Пока пусто. Добавь то, что хочется ♥</p>`;
+
+    const total = cartTotal();
+    const left = WANT_BUDGET - total;
+    const totalEl = $("#cartTotal");
+    if (totalEl) totalEl.textContent = items.length ? `Итого: ${total.toLocaleString("ru-RU")} ₽ · ${items.length} шт.` : "Пока пусто ♥";
+    const leftEl = $("#cartLeft");
+    if (leftEl) leftEl.textContent = items.length
+      ? (left >= 0
+        ? `Осталось из ${WANT_BUDGET.toLocaleString("ru-RU")} ₽: ${left.toLocaleString("ru-RU")} ₽`
+        : `Чуть больше бюджета на ${Math.abs(left).toLocaleString("ru-RU")} ₽ — ничего страшно, мне для тебя ничего не жалко ♥`)
+      : "";
+
+    const tg = $("#cartTelegram");
+    if (tg) {
+      if (items.length && tgName) {
+        const lines = items.map((it, i) => `${i + 1}. ${it.name} — арт. ${it.nm}, ${Number(it.price || 0).toLocaleString("ru-RU")} ₽`);
+        const text = `Привет! Я посмотрела «что ты хочешь» и выбрала ♥\n\n${lines.join("\n")}\n\nИтого: ${total.toLocaleString("ru-RU")} ₽\nНе раньше 10 декабря 🥺`;
+        tg.href = tgLink(text);
+        tg.hidden = false;
+      } else {
+        tg.removeAttribute("href");
+        tg.hidden = true;
+      }
+    }
+    updateWantBanner();
+  }
+
+  function openCart() {
+    renderCart();
+    openModal($("#cartModal"));
+  }
+
+  function initCart() {
+    $$("[data-close-cart]").forEach((el) => el.addEventListener("click", () => closeModal($("#cartModal"))));
+    $("#cartItems")?.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-cart-remove]");
+      if (btn) toggleCart(btn.dataset.cartRemove);
+    });
+    $("#cartClear")?.addEventListener("click", () => {
+      if (!cart.length) return;
+      cart = [];
+      saveCart();
+      renderCart();
+      renderGifts();
+      toast("Корзина очищена");
+    });
+    updateWantBanner();
   }
 
   /* ---------------- coupons ---------------- */
@@ -1182,6 +1366,7 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         if ($("#lightbox")?.classList.contains("is-open")) closeLightbox();
+        else if ($("#cartModal")?.classList.contains("is-open")) closeModal($("#cartModal"));
         else if ($("#giftModal")?.classList.contains("is-open")) closeModal($("#giftModal"));
         else if ($("#timeModal")?.classList.contains("is-open")) closeModal($("#timeModal"));
       }
@@ -1744,6 +1929,7 @@
     initGallery();
     renderLittle();
     initGifts();
+    initCart();
     initCoupons();
     initPlanner();
     initLightbox();
