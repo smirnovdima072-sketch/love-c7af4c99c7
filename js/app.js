@@ -1577,7 +1577,7 @@
     const error = $("#gateError");
     const success = $("#gateSuccess");
     const canvas = $("#fxCanvas");
-    const answer = "736429";
+    const answer = "29082025";
     let finishing = false;
 
     const blockScroll = (e) => e.preventDefault();
